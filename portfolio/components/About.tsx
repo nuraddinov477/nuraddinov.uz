@@ -55,14 +55,19 @@ export default function About() {
           <div className="flex justify-center md:justify-end">
             <div className="relative animate-float">
               <div className="absolute -inset-4 rounded-3xl bg-white/5 blur-2xl pointer-events-none" />
-              <Image
-                src="/photo-nobg.png"
-                alt="Nuraddinov Sarvarbek"
-                width={280}
-                height={360}
-                className="w-[260px] h-auto block"
-                priority
-              />
+              <div className="relative">
+                <Image
+                  src="/photo-nobg.png"
+                  alt="Nuraddinov Sarvarbek"
+                  width={280}
+                  height={360}
+                  className="w-[260px] h-auto block"
+                  priority
+                />
+                <div className="absolute inset-0 pointer-events-none" style={{
+                  background: "linear-gradient(to bottom, #0a0a0a 0%, transparent 18%, transparent 75%, #0a0a0a 100%), linear-gradient(to right, #0a0a0a 0%, transparent 15%, transparent 85%, #0a0a0a 100%)"
+                }} />
+              </div>
             </div>
           </div>
 
