@@ -61,7 +61,7 @@ export default function About() {
                   alt="Nuraddinov Sarvarbek"
                   width={280}
                   height={360}
-                  className="w-[260px] h-auto block"
+                  className="w-[260px] h-auto block mix-blend-multiply"
                   priority
                 />
               </div>
