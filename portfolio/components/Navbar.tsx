@@ -9,6 +9,7 @@ const langs: { code: Lang; label: string }[] = [
   { code: "uz", label: "UZ" },
   { code: "ru", label: "RU" },
   { code: "en", label: "EN" },
+  { code: "zh", label: "ZH" },
 ];
 
 export default function Navbar() {

@@ -1,4 +1,4 @@
-export type Lang = "uz" | "ru" | "en";
+export type Lang = "uz" | "ru" | "en" | "zh";
 
 export const translations = {
   uz: {
@@ -254,6 +254,91 @@ export const translations = {
       rights: "All rights reserved",
       madeWith: "Made with",
       by: "by",
+    },
+  },
+  zh: {
+    nav: {
+      about: "关于我",
+      skills: "技能",
+      projects: "项目",
+      contact: "联系",
+    },
+    hero: {
+      greeting: "你好，我是",
+      name: "Sarvarbek Nuraddinov",
+      title: "ML & Web 开发者",
+      subtitle: "我利用人工智能和现代网络技术解决问题",
+      cta: "查看项目",
+      contact: "联系我",
+    },
+    about: {
+      title: "关于我",
+      description:
+        "我是 Nuraddinov Sarvarbek——ML 工程师和网页开发者。我开发机器学习模型和现代网络应用程序。我也从事 vibe coding。",
+      description2:
+        "我以创造性的方式对待每个项目。我熟练掌握 Python、PyTorch、scikit-learn，以及 React、Next.js 和 Node.js。",
+      location: "所在地",
+      locationValue: "塔什干，乌兹别克斯坦",
+      experience: "经验",
+      experienceValue: "2年以上",
+      status: "状态",
+      statusValue: "正在求职",
+    },
+    skills: {
+      title: "技能",
+      subtitle: "我使用的技术",
+      categories: {
+        frontend: "前端",
+        backend: "后端",
+        tools: "工具",
+        other: "其他",
+      },
+    },
+    projects: {
+      title: "项目",
+      subtitle: "我的部分作品",
+      viewCode: "查看代码",
+      viewDemo: "演示",
+      items: [
+        {
+          title: "个人作品集网站",
+          description:
+            "使用 Next.js 和 Tailwind CSS 构建的个人作品集网站。多语言界面（UZ / RU / EN / ZH）。",
+          tech: ["Next.js", "TypeScript", "Tailwind CSS"],
+          github: "#",
+          demo: "#",
+        },
+        {
+          title: "Kitoblar Dunyosi",
+          description:
+            "乌兹别克和世界文学的在线图书馆平台。支持图书搜索、浏览和个人收藏管理。",
+          tech: ["React", "Node.js", "MongoDB"],
+          github: "#",
+          demo: "#",
+        },
+        {
+          title: "乌兹别克文学——东方语言",
+          description:
+            "专注于乌兹别克文学和东方语言（阿拉伯语、波斯语、土耳其语）的信息网站，以教育为目的。",
+          tech: ["Next.js", "PostgreSQL", "Tailwind CSS"],
+          github: "#",
+          demo: "#",
+        },
+      ],
+    },
+    contact: {
+      title: "联系",
+      subtitle: "给我发消息",
+      namePlaceholder: "您的姓名",
+      emailPlaceholder: "您的邮箱",
+      messagePlaceholder: "您的留言...",
+      send: "发送消息",
+      orConnect: "或通过社交媒体联系",
+    },
+    footer: {
+      rights: "保留所有权利",
+      madeWith: "制作于",
+      by: "作者",
     },
   },
 } as const;
