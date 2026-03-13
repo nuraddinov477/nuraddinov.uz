@@ -53,13 +53,14 @@ export default function About() {
 
           {/* Right: Floating photo */}
           <div className="flex justify-center md:justify-end">
-            <div className="animate-float">
+            <div className="relative animate-float -mt-16">
+              <div className="absolute inset-0 rounded-full bg-white/10 blur-3xl pointer-events-none" />
               <Image
                 src="/photo-nobg.png"
                 alt="Nuraddinov Sarvarbek"
                 width={280}
                 height={360}
-                className="w-[260px] h-auto block"
+                className="relative w-[260px] h-auto block"
                 priority
               />
             </div>
