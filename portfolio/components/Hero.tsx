@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useLang } from "@/context/LanguageContext";
 import { ArrowDown, Github, Linkedin, Facebook, Mail, Send, Instagram } from "lucide-react";
 import Sparkles from "@/components/Sparkles";
-import Image from "next/image";
 
 const roles = [
   "ML Engineer",
@@ -62,22 +61,7 @@ export default function Hero() {
       {/* Glow */}
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="relative w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-12">
-
-      {/* Floating photo */}
-      <div className="order-first lg:order-last flex-shrink-0 animate-float">
-        <div className="relative w-64 h-64 sm:w-80 sm:h-80 rounded-2xl overflow-hidden border border-accent/20 shadow-[0_0_40px_rgba(34,197,94,0.08)]" style={{ background: "#000000" }}>
-          <Image
-            src="/photo.jpg.png"
-            alt="Sarvarbek Nuraddinov"
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-      </div>
-
-      <div className="relative text-center lg:text-left max-w-xl">
+      <div className="relative text-center max-w-3xl mx-auto">
         {/* Status badge */}
         <div className="inline-flex items-center gap-2 bg-surface-2 border border-accent/20 rounded-full px-4 py-1.5 mb-8 text-sm text-gray-400 font-mono">
           <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
@@ -144,7 +128,6 @@ export default function Hero() {
             </a>
           ))}
         </div>
-      </div>
       </div>
 
       {/* Scroll indicator */}

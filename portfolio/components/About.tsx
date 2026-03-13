@@ -54,17 +54,17 @@ export default function About() {
           {/* Right: Floating photo */}
           <div className="flex justify-center md:justify-end">
             <div className="relative animate-float">
-              {/* Green glow */}
               <div className="absolute -inset-4 rounded-3xl bg-white/5 blur-2xl pointer-events-none" />
-              {/* Gradient border */}
-              <Image
-                src="/photo-nobg.png"
-                alt="Nuraaddinov Sarvarbek"
-                width={280}
-                height={360}
-                className="w-[260px] h-auto block"
-                priority
-              />
+              <div className="rounded-2xl overflow-hidden border border-accent/20" style={{ background: "#000000" }}>
+                <Image
+                  src="/photo.jpg.png"
+                  alt="Nuraddinov Sarvarbek"
+                  width={280}
+                  height={360}
+                  className="w-[260px] h-auto block"
+                  priority
+                />
+              </div>
             </div>
           </div>
 
