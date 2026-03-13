@@ -66,7 +66,7 @@ export default function About() {
                 />
                 {/* Vignette overlay */}
                 <div className="absolute inset-0 pointer-events-none" style={{
-                  background: "radial-gradient(ellipse 75% 70% at 50% 45%, transparent 40%, #0a0a0a 85%)"
+                  background: "radial-gradient(ellipse 60% 55% at 50% 48%, transparent 25%, #0a0a0a 60%)"
                 }} />
               </div>
             </div>
