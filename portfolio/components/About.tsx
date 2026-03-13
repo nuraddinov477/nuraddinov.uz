@@ -55,20 +55,14 @@ export default function About() {
           <div className="flex justify-center md:justify-end">
             <div className="relative animate-float">
               <div className="absolute -inset-4 rounded-3xl bg-white/5 blur-2xl pointer-events-none" />
-              <div className="relative rounded-2xl overflow-hidden border border-accent/20">
-                <Image
-                  src="/photo.jpg.png"
-                  alt="Nuraddinov Sarvarbek"
-                  width={280}
-                  height={360}
-                  className="w-[260px] h-auto block"
-                  priority
-                />
-                {/* Vignette overlay */}
-                <div className="absolute inset-0 pointer-events-none" style={{
-                  background: "radial-gradient(ellipse 60% 55% at 50% 48%, transparent 25%, #0a0a0a 60%)"
-                }} />
-              </div>
+              <Image
+                src="/photo-nobg.png"
+                alt="Nuraddinov Sarvarbek"
+                width={280}
+                height={360}
+                className="w-[260px] h-auto block"
+                priority
+              />
             </div>
           </div>
 
