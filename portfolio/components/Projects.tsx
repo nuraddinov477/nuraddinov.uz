@@ -85,7 +85,7 @@ export default function Projects() {
           className="text-center mt-10"
           style={{ opacity: visible ? 1 : 0, transition: "opacity 0.6s ease 0.4s" }}
         >
-          <a href="https://github.com/nuraddinovsarvarbek05-prog" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-accent font-mono text-sm hover:underline">
+          <a href="https://github.com/nuraddinov477" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-accent font-mono text-sm hover:underline">
             <Github size={16} />
             GitHub da barchasi →
           </a>

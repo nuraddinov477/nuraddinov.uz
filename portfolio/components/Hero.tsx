@@ -109,7 +109,7 @@ export default function Hero() {
         {/* Social links */}
         <div className="flex items-center justify-center gap-5">
           {[
-            { icon: <Github size={20} />, href: "https://github.com/nuraddinovsarvarbek05-prog", label: "GitHub" },
+            { icon: <Github size={20} />, href: "https://github.com/nuraddinov477", label: "GitHub" },
             { icon: <Send size={20} />, href: "https://t.me/nuraddinov_477", label: "Telegram" },
             { icon: <Instagram size={20} />, href: "https://instagram.com/nuraddinov__477", label: "Instagram" },
             { icon: <Linkedin size={20} />, href: "https://linkedin.com/in/sarvarbek-nuraddinov", label: "LinkedIn" },

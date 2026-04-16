@@ -5,7 +5,7 @@ import { useLang } from "@/context/LanguageContext";
 import { Github, Linkedin, Facebook, Mail, Send, Instagram } from "lucide-react";
 
 const socialLinks = [
-  { icon: <Github size={20} />, label: "GitHub", href: "https://github.com/nuraddinovsarvarbek05-prog", handle: "@nuraddinovsarvarbek05-prog" },
+  { icon: <Github size={20} />, label: "GitHub", href: "https://github.com/nuraddinov477", handle: "@nuraddinov477" },
   { icon: <Send size={20} />, label: "Telegram", href: "https://t.me/nuraddinov_477", handle: "@nuraddinov_477" },
   { icon: <Instagram size={20} />, label: "Instagram", href: "https://instagram.com/nuraddinov__477", handle: "@nuraddinov__477" },
   { icon: <Linkedin size={20} />, label: "LinkedIn", href: "https://linkedin.com/in/sarvarbek-nuraddinov", handle: "Sarvarbek Nuraddinov" },
