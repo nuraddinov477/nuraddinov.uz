@@ -29,6 +29,8 @@ npm run lint     # Run ESLint
 
 When adding new translatable strings, add keys to all four language objects in `lib/translations.ts` — never hardcode user-visible text in components.
 
+**Projects** — Defined per language in `t.projects.items`; `"#"` means no `demo`/`github` link. The whole card links to the demo (falling back to the repo), and cards with neither link are hidden.
+
 **Contact info** — GitHub username, email, and social links live in `lib/socials.ts` (shared by Hero, Projects, Contact). Use `linkTarget(href)` for link `target`/`rel` so `mailto:` links don't open a blank tab.
 
 **Styling** — Tailwind CSS with a custom dark theme. Core palette defined in `tailwind.config.ts`:

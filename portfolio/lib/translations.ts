@@ -52,17 +52,25 @@ export const translations = {
           title: "SmartJadval",
           description:
             "Toshkent davlat sharqshunoslik universiteti uchun AI yordamidagi dars jadvali tizimi. Jadvalni to'qnashuvlarsiz avtomatik tuzadi, AI yordamchi oddiy tilda berilgan buyruqlarni tushunadi, jadvalni PDF, Word va Excel formatida eksport qiladi.",
-          tech: ["React", "Vite", "Tailwind CSS", "AI / LLM"],
+          tech: ["React", "FastAPI", "Tailwind CSS", "AI / LLM"],
           github: "#",
           demo: "https://smartjadval-1.vercel.app/tsuos",
         },
         {
-          title: "Bilim Check-Up",
+          title: "Turkiy Yozma Yodgorliklar Korpusi",
           description:
-            "Maktablar uchun diagnostik imtihon tizimi. O'quvchilarning bilim darajasini aniqlashga yordam beradi, maktab xodimlari uchun alohida admin panelga ega.",
-          tech: ["Python", "FastAPI", "HTML / CSS"],
-          github: "#",
-          demo: "https://bilim-checkup.onrender.com",
+            "O'rta asrlar turkiy yozma merosini o'rganish uchun ilmiy elektron korpus: 17 ta yodgorlik, 110 000+ so'z, interaktiv xarita, vaqt o'qi, konkordans va statistika. 4 tilda (UZ / RU / EN / TR).",
+          tech: ["React", "Django REST", "PostgreSQL", "Leaflet"],
+          github: "https://github.com/nuraddinov477/turkiy_yozma_yodgorliklar",
+          demo: "https://turkiy-yozma-yodgorliklar.vercel.app",
+        },
+        {
+          title: "HSKGo",
+          description:
+            "HSK 1–9 darajalariga tayyorlanish uchun xitoy tili platformasi: 11 000+ so'z, 3 000+ ieroglif, tinglash, o'qish, chiziq tartibida yozish va talaffuzni baholash modullari.",
+          tech: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS"],
+          github: "https://github.com/nuraddinov477/hsk.1_6",
+          demo: "https://hsk-1-6.vercel.app",
         },
         {
           title: "Xitoy tili — HSK",
@@ -71,6 +79,30 @@ export const translations = {
           tech: ["Next.js", "React", "Tailwind CSS"],
           github: "https://github.com/nuraddinov477/Xitoy_tili",
           demo: "https://xitoy-tili.vercel.app",
+        },
+        {
+          title: "Firdavs school — Boshqaruv paneli",
+          description:
+            "Maktab uchun diagnostika va boshqaruv tizimi. Muassis, direktor, o'qituvchi, psixolog kabi 7 ta rol va huquqlar matritsasi bor. Demo hisoblar bilan kirib ko'rish mumkin.",
+          tech: ["Next.js", "TypeScript", "Prisma", "Tailwind CSS"],
+          github: "#",
+          demo: "https://eduuz-sand.vercel.app",
+        },
+        {
+          title: "Bilim Check-Up",
+          description:
+            "Maktablar uchun diagnostik imtihon tizimi. O'quvchilarning bilim darajasini aniqlashga yordam beradi, maktab xodimlari uchun alohida admin panelga ega.",
+          tech: ["FastAPI", "Jinja2", "PostgreSQL", "Claude API"],
+          github: "#",
+          demo: "https://bilim-checkup.onrender.com",
+        },
+        {
+          title: "RESTA ERP",
+          description:
+            "Konsalting kompaniyasi uchun AI asosidagi boshqaruv tizimi (ERP). Claude AI integratsiyasi, Telegram bot va kunlik avtomatik hisobotlar bilan.",
+          tech: ["FastAPI", "PostgreSQL", "Claude API", "Telegram bot"],
+          github: "#",
+          demo: "https://resta-erp.onrender.com",
         },
         {
           title: "Portfolio Sayt",
@@ -165,17 +197,25 @@ export const translations = {
           title: "SmartJadval",
           description:
             "Система составления расписания с ИИ для Ташкентского государственного университета востоковедения. Автоматически строит расписание без накладок, ИИ-ассистент понимает команды на естественном языке, экспорт в PDF, Word и Excel.",
-          tech: ["React", "Vite", "Tailwind CSS", "AI / LLM"],
+          tech: ["React", "FastAPI", "Tailwind CSS", "AI / LLM"],
           github: "#",
           demo: "https://smartjadval-1.vercel.app/tsuos",
         },
         {
-          title: "Bilim Check-Up",
+          title: "Корпус тюркских письменных памятников",
           description:
-            "Система диагностических экзаменов для школ. Помогает определить уровень знаний учеников, имеет отдельную админ-панель для сотрудников школы.",
-          tech: ["Python", "FastAPI", "HTML / CSS"],
-          github: "#",
-          demo: "https://bilim-checkup.onrender.com",
+            "Научный электронный корпус для изучения средневекового тюркского письменного наследия: 17 памятников, 110 000+ слов, интерактивная карта, хронология, конкорданс и статистика. На 4 языках (UZ / RU / EN / TR).",
+          tech: ["React", "Django REST", "PostgreSQL", "Leaflet"],
+          github: "https://github.com/nuraddinov477/turkiy_yozma_yodgorliklar",
+          demo: "https://turkiy-yozma-yodgorliklar.vercel.app",
+        },
+        {
+          title: "HSKGo",
+          description:
+            "Платформа для подготовки к HSK уровней 1–9: 11 000+ слов, 3 000+ иероглифов, модули аудирования, чтения, письма с порядком черт и оценки произношения.",
+          tech: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS"],
+          github: "https://github.com/nuraddinov477/hsk.1_6",
+          demo: "https://hsk-1-6.vercel.app",
         },
         {
           title: "Китайский язык — HSK",
@@ -184,6 +224,30 @@ export const translations = {
           tech: ["Next.js", "React", "Tailwind CSS"],
           github: "https://github.com/nuraddinov477/Xitoy_tili",
           demo: "https://xitoy-tili.vercel.app",
+        },
+        {
+          title: "Firdavs school — Панель управления",
+          description:
+            "Система диагностики и управления для школы: 7 ролей (учредитель, директор, учитель, психолог и др.) с матрицей прав доступа. Можно войти через демо-аккаунты.",
+          tech: ["Next.js", "TypeScript", "Prisma", "Tailwind CSS"],
+          github: "#",
+          demo: "https://eduuz-sand.vercel.app",
+        },
+        {
+          title: "Bilim Check-Up",
+          description:
+            "Система диагностических экзаменов для школ. Помогает определить уровень знаний учеников, имеет отдельную админ-панель для сотрудников школы.",
+          tech: ["FastAPI", "Jinja2", "PostgreSQL", "Claude API"],
+          github: "#",
+          demo: "https://bilim-checkup.onrender.com",
+        },
+        {
+          title: "RESTA ERP",
+          description:
+            "AI-ориентированная система управления (ERP) для консалтинговой компании. Интеграция с Claude AI, Telegram-бот и ежедневные автоматические отчёты.",
+          tech: ["FastAPI", "PostgreSQL", "Claude API", "Telegram bot"],
+          github: "#",
+          demo: "https://resta-erp.onrender.com",
         },
         {
           title: "Portfolio сайт",
@@ -278,17 +342,25 @@ export const translations = {
           title: "SmartJadval",
           description:
             "AI-assisted class scheduling system for Tashkent State University of Oriental Studies. Automatically builds conflict-free timetables, an AI assistant understands plain-language commands, and schedules export to PDF, Word, and Excel.",
-          tech: ["React", "Vite", "Tailwind CSS", "AI / LLM"],
+          tech: ["React", "FastAPI", "Tailwind CSS", "AI / LLM"],
           github: "#",
           demo: "https://smartjadval-1.vercel.app/tsuos",
         },
         {
-          title: "Bilim Check-Up",
+          title: "Corpus of Turkic Written Monuments",
           description:
-            "A diagnostic exam system for schools. Helps assess students' knowledge level and includes a separate admin panel for school staff.",
-          tech: ["Python", "FastAPI", "HTML / CSS"],
-          github: "#",
-          demo: "https://bilim-checkup.onrender.com",
+            "A scholarly electronic corpus of medieval Turkic written heritage: 17 monuments, 110,000+ words, an interactive map, timeline, concordance, and statistics. Available in 4 languages (UZ / RU / EN / TR).",
+          tech: ["React", "Django REST", "PostgreSQL", "Leaflet"],
+          github: "https://github.com/nuraddinov477/turkiy_yozma_yodgorliklar",
+          demo: "https://turkiy-yozma-yodgorliklar.vercel.app",
+        },
+        {
+          title: "HSKGo",
+          description:
+            "A Chinese learning platform for HSK levels 1–9: 11,000+ words, 3,000+ characters, and modules for listening, reading, stroke-order writing, and pronunciation scoring.",
+          tech: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS"],
+          github: "https://github.com/nuraddinov477/hsk.1_6",
+          demo: "https://hsk-1-6.vercel.app",
         },
         {
           title: "Chinese Language — HSK",
@@ -297,6 +369,30 @@ export const translations = {
           tech: ["Next.js", "React", "Tailwind CSS"],
           github: "https://github.com/nuraddinov477/Xitoy_tili",
           demo: "https://xitoy-tili.vercel.app",
+        },
+        {
+          title: "Firdavs School — Management Panel",
+          description:
+            "A diagnostics and management system for a school, with 7 roles (founder, director, teacher, psychologist, and more) and a permission matrix. Demo accounts are available to try it out.",
+          tech: ["Next.js", "TypeScript", "Prisma", "Tailwind CSS"],
+          github: "#",
+          demo: "https://eduuz-sand.vercel.app",
+        },
+        {
+          title: "Bilim Check-Up",
+          description:
+            "A diagnostic exam system for schools. Helps assess students' knowledge level and includes a separate admin panel for school staff.",
+          tech: ["FastAPI", "Jinja2", "PostgreSQL", "Claude API"],
+          github: "#",
+          demo: "https://bilim-checkup.onrender.com",
+        },
+        {
+          title: "RESTA ERP",
+          description:
+            "An AI-first management system (ERP) for a consulting company, with Claude AI integration, a Telegram bot, and automated daily reports.",
+          tech: ["FastAPI", "PostgreSQL", "Claude API", "Telegram bot"],
+          github: "#",
+          demo: "https://resta-erp.onrender.com",
         },
         {
           title: "Portfolio Website",
@@ -391,17 +487,25 @@ export const translations = {
           title: "SmartJadval",
           description:
             "为塔什干国立东方学大学开发的 AI 智能排课系统。自动生成无冲突课表，AI 助手可理解自然语言指令，并支持导出 PDF、Word 和 Excel。",
-          tech: ["React", "Vite", "Tailwind CSS", "AI / LLM"],
+          tech: ["React", "FastAPI", "Tailwind CSS", "AI / LLM"],
           github: "#",
           demo: "https://smartjadval-1.vercel.app/tsuos",
         },
         {
-          title: "Bilim Check-Up",
+          title: "突厥文献语料库",
           description:
-            "面向学校的诊断性考试系统，帮助评估学生的知识水平，并为学校工作人员提供独立的管理后台。",
-          tech: ["Python", "FastAPI", "HTML / CSS"],
-          github: "#",
-          demo: "https://bilim-checkup.onrender.com",
+            "研究中世纪突厥文字遗产的学术电子语料库：收录 17 处碑铭、11 万余词，提供交互式地图、时间轴、语词索引和统计。支持 4 种语言（UZ / RU / EN / TR）。",
+          tech: ["React", "Django REST", "PostgreSQL", "Leaflet"],
+          github: "https://github.com/nuraddinov477/turkiy_yozma_yodgorliklar",
+          demo: "https://turkiy-yozma-yodgorliklar.vercel.app",
+        },
+        {
+          title: "HSKGo",
+          description:
+            "HSK 1–9 级备考中文学习平台：11,000+ 词汇、3,000+ 汉字，包含听力、阅读、笔顺书写和发音评测模块。",
+          tech: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS"],
+          github: "https://github.com/nuraddinov477/hsk.1_6",
+          demo: "https://hsk-1-6.vercel.app",
         },
         {
           title: "中文学习 — HSK",
@@ -410,6 +514,30 @@ export const translations = {
           tech: ["Next.js", "React", "Tailwind CSS"],
           github: "https://github.com/nuraddinov477/Xitoy_tili",
           demo: "https://xitoy-tili.vercel.app",
+        },
+        {
+          title: "Firdavs School 管理系统",
+          description:
+            "面向学校的诊断与管理系统，包含创办人、校长、教师、心理老师等 7 种角色及权限矩阵，可使用演示账号登录体验。",
+          tech: ["Next.js", "TypeScript", "Prisma", "Tailwind CSS"],
+          github: "#",
+          demo: "https://eduuz-sand.vercel.app",
+        },
+        {
+          title: "Bilim Check-Up",
+          description:
+            "面向学校的诊断性考试系统，帮助评估学生的知识水平，并为学校工作人员提供独立的管理后台。",
+          tech: ["FastAPI", "Jinja2", "PostgreSQL", "Claude API"],
+          github: "#",
+          demo: "https://bilim-checkup.onrender.com",
+        },
+        {
+          title: "RESTA ERP",
+          description:
+            "为咨询公司打造的 AI 优先管理系统（ERP），集成 Claude AI、Telegram 机器人和每日自动报告。",
+          tech: ["FastAPI", "PostgreSQL", "Claude API", "Telegram bot"],
+          github: "#",
+          demo: "https://resta-erp.onrender.com",
         },
         {
           title: "个人作品集网站",
