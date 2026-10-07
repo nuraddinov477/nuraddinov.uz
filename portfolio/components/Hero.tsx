@@ -2,23 +2,24 @@
 
 import { useEffect, useState } from "react";
 import { useLang } from "@/context/LanguageContext";
-import { ArrowDown, Github, Linkedin, Facebook, Mail, Send, Instagram } from "lucide-react";
+import { ArrowDown, Github } from "lucide-react";
 import Sparkles from "@/components/Sparkles";
-
-const roles = [
-  "ML Engineer",
-  "Web Developer",
-  "Vibe Coder",
-  "ML muhandis",
-  "Veb dasturchi",
-  "ML-инженер",
-];
+import { GITHUB_URL, GITHUB_USERNAME, linkTarget, socialLinks } from "@/lib/socials";
 
 export default function Hero() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
+  const roles = t.hero.roles;
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+
+  // Restart typing when the language changes, otherwise a half-typed
+  // role longer than the new one leaves the effect with no branch to take
+  useEffect(() => {
+    setRoleIndex(0);
+    setDisplayed("");
+    setIsDeleting(false);
+  }, [lang]);
 
   useEffect(() => {
     const current = roles[roleIndex];
@@ -40,7 +41,7 @@ export default function Hero() {
     }
 
     return () => clearTimeout(timeout);
-  }, [displayed, isDeleting, roleIndex]);
+  }, [displayed, isDeleting, roleIndex, roles]);
 
   const scrollToProjects = () => {
     document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
@@ -104,27 +105,27 @@ export default function Hero() {
           >
             {t.hero.contact}
           </button>
+          <a
+            href={GITHUB_URL}
+            {...linkTarget(GITHUB_URL)}
+            className="flex items-center gap-2 bg-surface-2 hover:bg-surface-3 text-white border border-white/10 hover:border-accent/30 font-semibold px-6 py-3 rounded-lg transition-all duration-200 font-mono text-sm"
+          >
+            <Github size={16} />
+            {GITHUB_USERNAME}
+          </a>
         </div>
 
         {/* Social links */}
         <div className="flex items-center justify-center gap-5">
-          {[
-            { icon: <Github size={20} />, href: "https://github.com/nuraddinov477", label: "GitHub" },
-            { icon: <Send size={20} />, href: "https://t.me/nuraddinov_477", label: "Telegram" },
-            { icon: <Instagram size={20} />, href: "https://instagram.com/nuraddinov__477", label: "Instagram" },
-            { icon: <Linkedin size={20} />, href: "https://linkedin.com/in/sarvarbek-nuraddinov", label: "LinkedIn" },
-            { icon: <Facebook size={20} />, href: "https://facebook.com/sarvarbek.nuraddinov", label: "Facebook" },
-            { icon: <Mail size={20} />, href: "mailto:nuraddinovsarvarbek05@gmail.com", label: "Email" },
-          ].map((s) => (
+          {socialLinks.map((s) => (
             <a
               key={s.label}
               href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...linkTarget(s.href)}
               aria-label={s.label}
               className="text-gray-500 hover:text-accent transition-colors duration-200 hover:scale-110 transform"
             >
-              {s.icon}
+              <s.icon size={20} />
             </a>
           ))}
         </div>

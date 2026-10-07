@@ -89,6 +89,8 @@ export default function Navbar() {
             <button
               className="md:hidden text-gray-400 hover:text-white transition-colors"
               onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Menu"
+              aria-expanded={menuOpen}
             >
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>

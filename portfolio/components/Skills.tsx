@@ -79,7 +79,7 @@ export default function Skills() {
   }, []);
 
   const categories = [
-    { key: "ml" as const, label: "Machine Learning", data: skillsData.ml },
+    { key: "ml" as const, label: t.skills.categories.ml, data: skillsData.ml },
     { key: "frontend" as const, label: t.skills.categories.frontend, data: skillsData.frontend },
     { key: "backend" as const, label: t.skills.categories.backend, data: skillsData.backend },
   ];

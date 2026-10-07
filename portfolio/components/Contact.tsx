@@ -2,16 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useLang } from "@/context/LanguageContext";
-import { Github, Linkedin, Facebook, Mail, Send, Instagram } from "lucide-react";
-
-const socialLinks = [
-  { icon: <Github size={20} />, label: "GitHub", href: "https://github.com/nuraddinov477", handle: "@nuraddinov477" },
-  { icon: <Send size={20} />, label: "Telegram", href: "https://t.me/nuraddinov_477", handle: "@nuraddinov_477" },
-  { icon: <Instagram size={20} />, label: "Instagram", href: "https://instagram.com/nuraddinov__477", handle: "@nuraddinov__477" },
-  { icon: <Linkedin size={20} />, label: "LinkedIn", href: "https://linkedin.com/in/sarvarbek-nuraddinov", handle: "Sarvarbek Nuraddinov" },
-  { icon: <Facebook size={20} />, label: "Facebook", href: "https://facebook.com/sarvarbek.nuraddinov", handle: "Sarvarbek Nuraddinov" },
-  { icon: <Mail size={20} />, label: "Email", href: "mailto:nuraddinovsarvarbek05@gmail.com", handle: "nuraddinovsarvarbek05@gmail.com" },
-];
+import { Send } from "lucide-react";
+import { EMAIL, linkTarget, socialLinks } from "@/lib/socials";
 
 export default function Contact() {
   const { t } = useLang();
@@ -31,8 +23,9 @@ export default function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const mailtoLink = `mailto:nuraddinovsarvarbek05@gmail.com?subject=Portfolio: ${form.name}&body=${form.message}%0A%0AEmail: ${form.email}`;
-    window.open(mailtoLink);
+    const subject = encodeURIComponent(`Portfolio: ${form.name}`);
+    const body = encodeURIComponent(`${form.message}\n\nEmail: ${form.email}`);
+    window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
     setSent(true);
     setTimeout(() => setSent(false), 3000);
     setForm({ name: "", email: "", message: "" });
@@ -85,7 +78,7 @@ export default function Contact() {
               type="submit"
               className="w-full bg-accent hover:bg-accent-dim text-black font-semibold py-3 rounded-xl transition-all duration-200 hover:scale-[1.02] font-mono text-sm flex items-center justify-center gap-2"
             >
-              {sent ? "✓ Yuborildi!" : (<><Send size={16} />{t.contact.send}</>)}
+              {sent ? `✓ ${t.contact.sent}` : (<><Send size={16} />{t.contact.send}</>)}
             </button>
           </form>
 
@@ -99,8 +92,7 @@ export default function Contact() {
                 <a
                   key={s.label}
                   href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  {...linkTarget(s.href)}
                   className="flex items-center gap-4 bg-surface-2 border border-white/5 rounded-xl px-5 py-3.5 hover:border-accent/20 hover:bg-surface-3 transition-all duration-200 group"
                   style={{
                     opacity: visible ? 1 : 0,
@@ -108,7 +100,7 @@ export default function Contact() {
                     transition: `opacity 0.5s ease ${0.3 + i * 0.07}s, transform 0.5s ease ${0.3 + i * 0.07}s`,
                   }}
                 >
-                  <span className="text-gray-500 group-hover:text-accent transition-colors">{s.icon}</span>
+                  <span className="text-gray-500 group-hover:text-accent transition-colors"><s.icon size={20} /></span>
                   <div>
                     <div className="text-white text-sm font-medium font-mono">{s.label}</div>
                     <div className="text-gray-600 text-xs">{s.handle}</div>
