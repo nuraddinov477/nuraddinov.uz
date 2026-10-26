@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { ArrowRight, Github, MapPin } from "lucide-react";
 import { useLang } from "@/context/LanguageContext";
-import { ArrowDown, Github } from "lucide-react";
 import Sparkles from "@/components/Sparkles";
 import { GITHUB_URL, GITHUB_USERNAME, linkTarget, socialLinks } from "@/lib/socials";
 import { projects } from "@/lib/projects";
@@ -38,15 +39,17 @@ function CountUp({ value, suffix = "" }: { value: number; suffix?: string }) {
 export default function Hero() {
   const { t, lang } = useLang();
   const roles = t.hero.roles;
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [displayed, setDisplayed] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [firstName, ...restName] = t.hero.name.split(" ");
+
   const stats = [
     { value: PROJECT_COUNT, suffix: "+", label: t.hero.stats.projects },
     { value: projects.filter((p) => p.demo).length, label: t.hero.stats.live },
     { value: experience.filter((e) => e.kind === "work" && e.id !== "independent").length, label: t.hero.stats.orgs },
     { value: YEARS, suffix: "+", label: t.hero.stats.years },
   ];
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [displayed, setDisplayed] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
 
   // Restart typing when the language changes, otherwise a half-typed
   // role longer than the new one leaves the effect with no branch to take
@@ -61,15 +64,11 @@ export default function Hero() {
     let timeout: ReturnType<typeof setTimeout>;
 
     if (!isDeleting && displayed.length < current.length) {
-      timeout = setTimeout(() => {
-        setDisplayed(current.slice(0, displayed.length + 1));
-      }, 100);
+      timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), 90);
     } else if (!isDeleting && displayed.length === current.length) {
       timeout = setTimeout(() => setIsDeleting(true), 2000);
     } else if (isDeleting && displayed.length > 0) {
-      timeout = setTimeout(() => {
-        setDisplayed(current.slice(0, displayed.length - 1));
-      }, 60);
+      timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length - 1)), 50);
     } else if (isDeleting && displayed.length === 0) {
       setIsDeleting(false);
       setRoleIndex((i) => (i + 1) % roles.length);
@@ -78,111 +77,87 @@ export default function Hero() {
     return () => clearTimeout(timeout);
   }, [displayed, isDeleting, roleIndex, roles]);
 
-  const scrollToProjects = () => {
-    document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const scrollToContact = () => {
-    document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 pt-28 pb-24 overflow-hidden">
-      {/* Background grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(34,197,94,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(34,197,94,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
+    <section className="relative overflow-hidden px-4 pt-36 pb-8 sm:pt-44 sm:pb-10">
+      {/* Soft color blobs */}
+      <div className="pointer-events-none absolute -top-20 left-[10%] h-[420px] w-[420px] rounded-full bg-accent/25 blur-[110px] animate-blob" />
+      <div className="pointer-events-none absolute top-40 right-[8%] h-[360px] w-[360px] rounded-full bg-sky/30 blur-[110px] animate-blob [animation-delay:-7s]" />
+      <div className="hidden dark:block">
+        <Sparkles count={35} />
+      </div>
 
-      {/* Sparkles */}
-      <Sparkles count={45} />
-
-      {/* Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="relative text-center max-w-3xl mx-auto">
-        {/* Status badge */}
-        <div className="inline-flex items-center gap-2 bg-surface-2 border border-accent/20 rounded-full px-4 py-1.5 mb-8 text-sm text-gray-400 font-mono">
-          <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
+      <div className="relative mx-auto max-w-4xl text-center">
+        <span className="chip inline-flex items-center gap-2 mb-6">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-accent opacity-75 animate-ping" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+          </span>
           {t.about.statusValue}
-        </div>
+        </span>
 
-        {/* Greeting */}
-        <p className="text-gray-400 text-lg mb-2 font-mono">{t.hero.greeting}</p>
+        <p className="font-heading text-xl sm:text-2xl font-bold text-body">{t.hero.greeting}</p>
 
-        {/* Name */}
-        <h1 className="text-6xl sm:text-7xl md:text-8xl font-bold text-white mb-4 tracking-tight">
-          {t.hero.name}
+        <h1 className="mt-2 font-heading font-extrabold tracking-tight text-5xl sm:text-7xl md:text-8xl leading-[1.05]">
+          <span className="text-accent">{firstName}</span> <span className="text-ink">{restName.join(" ")}</span>
         </h1>
 
-        {/* Animated role */}
-        <div className="h-12 flex items-center justify-center mb-6">
-          <span className="text-2xl sm:text-3xl font-mono text-accent">
+        <div className="mt-5 h-9 flex items-center justify-center">
+          <span className="font-heading text-xl sm:text-2xl font-bold text-ink">
             {displayed}
-            <span className="animate-blink">|</span>
+            <span className="animate-blink text-accent">|</span>
           </span>
         </div>
 
-        {/* Subtitle */}
-        <p className="text-gray-400 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
-          {t.hero.subtitle}
-        </p>
+        <p className="mx-auto mt-4 max-w-xl text-base sm:text-lg leading-relaxed text-body">{t.hero.subtitle}</p>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-          <button
-            onClick={scrollToProjects}
-            className="group flex items-center gap-2 bg-accent hover:bg-accent-dim text-black font-semibold px-6 py-3 rounded-lg transition-all duration-200 hover:scale-105 font-mono text-sm"
-          >
+        <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+          <Link href="/projects" className="clay-btn clay-btn-primary">
             {t.hero.cta}
-            <ArrowDown size={16} className="group-hover:translate-y-1 transition-transform" />
-          </button>
-          <button
-            onClick={scrollToContact}
-            className="flex items-center gap-2 bg-surface-2 hover:bg-surface-3 text-white border border-white/10 hover:border-accent/30 font-semibold px-6 py-3 rounded-lg transition-all duration-200 font-mono text-sm"
-          >
+            <ArrowRight size={16} />
+          </Link>
+          <Link href="/contact" className="clay-btn clay-btn-sky">
             {t.hero.contact}
-          </button>
-          <a
-            href={GITHUB_URL}
-            {...linkTarget(GITHUB_URL)}
-            className="flex items-center gap-2 bg-surface-2 hover:bg-surface-3 text-white border border-white/10 hover:border-accent/30 font-semibold px-6 py-3 rounded-lg transition-all duration-200 font-mono text-sm"
-          >
+          </Link>
+          <a href={GITHUB_URL} {...linkTarget(GITHUB_URL)} className="clay-btn clay-btn-plain">
             <Github size={16} />
             {GITHUB_USERNAME}
           </a>
         </div>
 
+        <p className="mt-6 flex items-center justify-center gap-1.5 text-sm font-semibold text-muted">
+          <MapPin size={15} className="text-accent" />
+          {t.about.locationValue}
+        </p>
+
         {/* Stats */}
-        <dl className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5 border border-white/5 rounded-2xl overflow-hidden mb-12 max-w-2xl mx-auto">
+        <dl className="clay mx-auto mt-12 grid max-w-2xl grid-cols-2 sm:grid-cols-4 divide-line p-2 sm:divide-x">
           {stats.map((s, i) => (
             // index key: a language switch must not restart the count-up
-            <div key={i} className="bg-[#0a0a0a]/90 backdrop-blur px-4 py-4">
+            <div key={i} className="px-4 py-4">
               <dt className="sr-only">{s.label}</dt>
-              <dd className="text-2xl sm:text-3xl font-bold font-mono text-white tabular-nums">
+              <dd className="font-heading text-3xl font-extrabold text-ink tabular-nums">
                 <CountUp value={s.value} suffix={s.suffix} />
               </dd>
-              <dd className="text-xs text-gray-500 mt-1">{s.label}</dd>
+              <dd className="mt-1 text-xs font-semibold text-muted">{s.label}</dd>
             </div>
           ))}
         </dl>
 
         {/* Social links */}
-        <div className="flex items-center justify-center gap-5">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
           {socialLinks.map((s) => (
             <a
               key={s.label}
               href={s.href}
               {...linkTarget(s.href)}
               aria-label={s.label}
-              className="text-gray-500 hover:text-accent transition-colors duration-200 hover:scale-110 transform"
+              className="clay-icon h-11 w-11 bg-surface text-body hover:text-accent hover:-translate-y-0.5 transition-all"
             >
-              <s.icon size={20} />
+              <s.icon size={18} />
             </a>
           ))}
         </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-600 animate-bounce">
-        <ArrowDown size={16} />
       </div>
     </section>
   );

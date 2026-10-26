@@ -1,7 +1,17 @@
 import type { Metadata } from "next";
+import { Manrope, Nunito } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { EMAIL, SITE_URL, socialLinks } from "@/lib/socials";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
+// Rounded fonts with Cyrillic support (the site is also in Russian)
+const heading = Nunito({ subsets: ["latin", "cyrillic"], weight: ["700", "800"], variable: "--font-heading", display: "swap" });
+const sans = Manrope({ subsets: ["latin", "cyrillic"], weight: ["400", "500", "600", "700"], variable: "--font-sans", display: "swap" });
+
+// Runs before first paint: saved choice, else the OS preference
+const themeScript = `(function(){try{var t=localStorage.getItem("theme");if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";if(t==="dark")document.documentElement.classList.add("dark")}catch(e){}})()`;
 
 const title = "Nuraddinov Sarvarbek — Full-stack & AI Developer";
 const description =
@@ -9,7 +19,7 @@ const description =
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title,
+  title: { default: title, template: "%s — Nuraddinov Sarvarbek" },
   description,
   alternates: { canonical: "/" },
   keywords: [
@@ -68,7 +78,15 @@ const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Nuraddinov Sarvarbek",
-  alternateName: ["Sarvarbek Nuraddinov", "Нураддинов Сарварбек"],
+  alternateName: [
+    "Sarvarbek Nuraddinov",
+    "Nuraddinov Sarvarbek Muzaffar o'g'li",
+    "Nuriddinov Sarvarbek",
+    "Sarvarbek Nuriddinov",
+    "Нураддинов Сарварбек",
+    "Сарварбек Нураддинов",
+    "nuraddinov477",
+  ],
   url: SITE_URL,
   image: `${SITE_URL}/photo-nobg.png`,
   jobTitle: "Full-stack & AI Developer",
@@ -85,21 +103,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="uz" suppressHydrationWarning>
+    <html lang="uz" suppressHydrationWarning className={`${heading.variable} ${sans.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className="bg-[#0a0a0a] text-gray-100 antialiased">
+      <body className="bg-bg text-body font-sans antialiased">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }}
         />
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider>
+          <Navbar />
+          <main className="min-h-screen overflow-x-clip">{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

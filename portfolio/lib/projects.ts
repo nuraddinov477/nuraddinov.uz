@@ -10,6 +10,8 @@ export interface Project {
   image?: string;
   tech: string[];
   categories: ProjectCategory[];
+  /** Shown in "Selected projects" on the home page */
+  featured?: boolean;
 }
 
 // Language-independent project data; titles and descriptions live in
@@ -17,6 +19,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: "smartjadval",
+    featured: true,
     demo: "https://smartjadval-1.vercel.app/tsuos",
     image: "/projects/smartjadval.jpg",
     tech: ["React", "FastAPI", "PostgreSQL", "Claude / Gemini"],
@@ -38,6 +41,7 @@ export const projects: Project[] = [
   },
   {
     id: "turkiy",
+    featured: true,
     demo: "https://turkiy-yozma-yodgorliklar.vercel.app",
     github: "https://github.com/nuraddinov477/turkiy_yozma_yodgorliklar",
     image: "/projects/turkiy.jpg",
@@ -53,6 +57,7 @@ export const projects: Project[] = [
   },
   {
     id: "hskgo",
+    featured: true,
     demo: "https://hsk-1-6.vercel.app",
     github: "https://github.com/nuraddinov477/hsk.1_6",
     image: "/projects/hskgo.jpg",

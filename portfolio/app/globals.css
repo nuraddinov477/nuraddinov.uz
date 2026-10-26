@@ -2,15 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Theme tokens as "R G B" so Tailwind can apply opacity (bg-accent/20) */
 :root {
-  --background: #0a0a0a;
-  --foreground: #e5e5e5;
+  --bg: 243 247 242;
+  --surface: 255 255 255;
+  --surface-2: 234 240 233;
+  --ink: 22 38 29;
+  --body: 70 86 77;
+  --muted: 118 133 124;
+  --line: 219 228 218;
+  --accent: 34 197 94;
+  --accent-soft: 134 239 172;
+  --accent-ink: 6 52 26;
+  --sky: 125 211 252;
+  --clay-dark: 196 208 195;
+  --clay-light: 255 255 255;
+  color-scheme: light;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+.dark {
+  --bg: 11 16 13;
+  --surface: 20 27 23;
+  --surface-2: 28 37 32;
+  --ink: 232 241 235;
+  --body: 178 192 184;
+  --muted: 122 138 129;
+  --line: 37 49 42;
+  --accent: 74 222 128;
+  --accent-soft: 74 222 128;
+  --accent-ink: 4 40 19;
+  --sky: 56 189 248;
+  --clay-dark: 0 0 0;
+  --clay-light: 36 48 41;
+  color-scheme: dark;
 }
 
 html {
@@ -18,39 +42,113 @@ html {
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: 'Inter', sans-serif;
+  background-color: rgb(var(--bg));
+  /* faint dot grid behind everything */
+  background-image: radial-gradient(rgb(var(--accent) / 0.09) 1px, transparent 1px);
+  background-size: 24px 24px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+@layer components {
+  /* Soft "clay" card: light from the top-left, shadow to the bottom-right */
+  .clay {
+    @apply rounded-clay border border-white/60 dark:border-line;
+    background-color: rgb(var(--surface) / 0.78);
+    box-shadow:
+      18px 18px 48px rgb(var(--clay-dark) / 0.55),
+      -18px -18px 48px rgb(var(--clay-light) / 0.9);
+    backdrop-filter: blur(10px);
+  }
+  .dark .clay {
+    box-shadow:
+      14px 14px 36px rgb(0 0 0 / 0.45),
+      -10px -10px 28px rgb(var(--clay-light) / 0.18);
+  }
+
+  /* Puffy pill button */
+  .clay-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-heading font-bold text-sm transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0;
+    box-shadow:
+      inset 4px 4px 8px rgb(255 255 255 / 0.45),
+      inset -4px -4px 8px rgb(0 0 0 / 0.12),
+      8px 8px 18px rgb(var(--clay-dark) / 0.5);
+  }
+  .dark .clay-btn {
+    box-shadow:
+      inset 3px 3px 6px rgb(255 255 255 / 0.18),
+      inset -3px -3px 6px rgb(0 0 0 / 0.3),
+      6px 6px 16px rgb(0 0 0 / 0.45);
+  }
+  /* Color variants — use together with .clay-btn */
+  .clay-btn-primary {
+    @apply bg-accent-soft text-accent-ink dark:bg-accent;
+  }
+  .clay-btn-sky {
+    @apply bg-sky text-[#062a3d];
+  }
+  .clay-btn-plain {
+    @apply bg-surface text-ink;
+  }
+
+  /* Rounded icon tile */
+  .clay-icon {
+    @apply flex items-center justify-center rounded-2xl;
+    box-shadow:
+      inset 3px 3px 6px rgb(255 255 255 / 0.5),
+      inset -3px -3px 6px rgb(0 0 0 / 0.1),
+      6px 6px 14px rgb(var(--clay-dark) / 0.5);
+  }
+  .dark .clay-icon {
+    box-shadow:
+      inset 2px 2px 5px rgb(255 255 255 / 0.15),
+      inset -2px -2px 5px rgb(0 0 0 / 0.3),
+      4px 4px 12px rgb(0 0 0 / 0.45);
+  }
+
+  /* Pressed-in field */
+  .clay-inset {
+    @apply rounded-2xl border border-transparent bg-surface-2 text-ink placeholder:text-muted outline-none transition-colors focus:border-accent/50;
+    box-shadow:
+      inset 4px 4px 10px rgb(var(--clay-dark) / 0.45),
+      inset -4px -4px 10px rgb(var(--clay-light) / 0.8);
+  }
+
+  .chip {
+    @apply rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent-ink dark:text-accent;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #111111;
+  background: rgb(var(--bg));
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #333333;
-  border-radius: 3px;
+  background: rgb(var(--line));
+  border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #22c55e;
+  background: rgb(var(--accent));
 }
 
-/* Selection */
 ::selection {
-  background: rgba(34, 197, 94, 0.3);
-  color: #fff;
+  background: rgb(var(--accent) / 0.3);
 }
 
 /* Sparkles */
 @keyframes twinkle {
   0%, 100% { opacity: 0; transform: scale(0.4) rotate(0deg); }
   50%       { opacity: 0.8; transform: scale(1) rotate(180deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

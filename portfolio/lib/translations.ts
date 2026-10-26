@@ -3,11 +3,14 @@ export type Lang = "uz" | "ru" | "en" | "zh";
 export const translations = {
   uz: {
     nav: {
+      home: "Asosiy",
       about: "Men haqimda",
-      experience: "Tajriba",
-      skills: "Ko'nikmalar",
       projects: "Loyihalar",
-      contact: "Aloqa",
+      contact: "Bog'lanish",
+    },
+    ui: {
+      theme: "Kun/tun rejimi",
+      menu: "Menyu",
     },
     hero: {
       greeting: "Salom, men",
@@ -24,8 +27,32 @@ export const translations = {
         years: "yillik tajriba",
       },
     },
+    process: {
+      label: "Ish jarayoni",
+      title: "Qanday ishlayman",
+      subtitle: "G'oyadan ishlaydigan tizimgacha — har bir loyiha to'rt bosqichdan o'tadi.",
+      steps: [
+        { title: "Tahlil", text: "Muammoni, foydalanuvchilarni va mavjud jarayonni o'rganaman: nimani avtomatlashtirish kerakligini aniqlayman." },
+        { title: "Loyihalash", text: "Arxitektura, ma'lumotlar bazasi va AI qayerda haqiqatan yordam berishini rejalashtiraman." },
+        { title: "Ishlab chiqish", text: "Backend, frontend va AI integratsiyasini quraman: FastAPI, Django, React, Next.js, Claude, Gemini." },
+        { title: "Ishga tushirish", text: "Vercel yoki Render'ga joylayman, real foydalanishda sinab ko'raman va kerakli o'zgarishlarni kiritaman." },
+      ],
+    },
+    featured: {
+      label: "Portfolio",
+      title: "Tanlangan loyihalar",
+      subtitle: "Jonli ishlaydigan loyihalarimdan bir nechtasi. Hammasini loyihalar sahifasida ko'ring.",
+      viewAll: "Barchasini ko'rish",
+    },
+    cta: {
+      title: "Loyihangiz bormi? Keling, gaplashamiz.",
+      text: "Ta'lim, biznes yoki AI bilan bog'liq g'oyangiz bo'lsa — yozing, birga ko'rib chiqamiz.",
+      contact: "Bog'lanish",
+      telegram: "Telegram'da yozish",
+    },
     about: {
-      title: "Men haqimda",
+      label: "Men haqimda",
+      heading: ["Ta'lim va biznes uchun", "AI tizimlar", "quraman."],
       description:
         "Men — Nuraddinov Sarvarbek Muzaffar o'g'li, Toshkent davlat sharqshunoslik universiteti talabasi va full-stack & AI dasturchiman. Ta'lim va biznes uchun sun'iy intellektga asoslangan tizimlar quraman: universitet dars jadvalidan tortib maktab diagnostikasi va konsalting ERP'sigacha.",
       description2:
@@ -46,6 +73,7 @@ export const translations = {
       ],
     },
     experience: {
+      label: "Tajriba",
       title: "Tajriba",
       subtitle: "Kimlar bilan va nima ustida ishlaganman",
       present: "hozir",
@@ -106,6 +134,7 @@ export const translations = {
       },
     },
     skills: {
+      label: "Texnologiyalar",
       title: "Ko'nikmalar",
       subtitle: "Real loyihalarda ishlatgan texnologiyalarim",
       legend: "Raqam — shu texnologiya ishlatilgan loyihalar soni",
@@ -118,8 +147,10 @@ export const translations = {
       },
     },
     projects: {
-      title: "Loyihalar",
-      subtitle: "Jonli ishlaydigan loyihalarim — ustiga bosib ochib ko'ring",
+      label: "Portfolio",
+      heading: ["Mening", "loyihalarim"],
+      subtitle: "Jonli ishlaydigan loyihalarim — kartochkani bosib, saytni oching.",
+      note: "Ayrim loyihalarning kodi yopiq — ularni jonli demo orqali ko'rishingiz mumkin.",
       viewCode: "Kodni ko'rish",
       viewDemo: "Saytni ochish",
       viewAll: "Barcha loyihalar GitHub'da",
@@ -169,7 +200,7 @@ export const translations = {
         portfolio: {
           title: "Portfolio Sayt",
           description:
-            "Shu sayt — Next.js va Tailwind CSS'da, 4 tilli (UZ / RU / EN / ZH), tajriba vaqt chizig'i va loyihalar filtri bilan.",
+            "Shu sayt — Next.js va Tailwind CSS'da: 4 tilli (UZ / RU / EN / ZH), kun/tun rejimi, tajriba vaqt chizig'i va loyihalar filtri bilan.",
         },
         kitoblar: {
           title: "Kitoblar Dunyosi",
@@ -184,16 +215,21 @@ export const translations = {
       },
     },
     contact: {
-      title: "Aloqa",
-      subtitle: "Menga xabar yuboring",
+      label: "Aloqa",
+      heading: ["Keling,", "bog'lanamiz"],
+      subtitle: "Loyiha, hamkorlik yoki savol bo'yicha bemalol yozing.",
+      formTitle: "Xabar yuborish",
       namePlaceholder: "Ismingiz",
       emailPlaceholder: "Email manzilingiz",
       messagePlaceholder: "Xabaringiz...",
       send: "Yuborish",
       sent: "Yuborildi!",
-      orConnect: "Yoki ijtimoiy tarmoqlar orqali",
+      orConnect: "Yoki to'g'ridan-to'g'ri:",
     },
     footer: {
+      tagline: "Full-stack & AI dasturchi. Ta'lim va biznes uchun sun'iy intellektga asoslangan tizimlar quraman.",
+      pages: "Sahifalar",
+      contact: "Aloqa",
       rights: "Barcha huquqlar himoyalangan",
       madeWith: "Yaratildi",
       by: "tomonidan",
@@ -201,11 +237,14 @@ export const translations = {
   },
   ru: {
     nav: {
+      home: "Главная",
       about: "Обо мне",
-      experience: "Опыт",
-      skills: "Навыки",
       projects: "Проекты",
-      contact: "Контакт",
+      contact: "Контакты",
+    },
+    ui: {
+      theme: "Светлая/тёмная тема",
+      menu: "Меню",
     },
     hero: {
       greeting: "Привет, я",
@@ -222,8 +261,32 @@ export const translations = {
         years: "года опыта",
       },
     },
+    process: {
+      label: "Процесс",
+      title: "Как я работаю",
+      subtitle: "От идеи до работающей системы — каждый проект проходит четыре этапа.",
+      steps: [
+        { title: "Анализ", text: "Изучаю задачу, пользователей и текущий процесс: определяю, что нужно автоматизировать." },
+        { title: "Проектирование", text: "Планирую архитектуру, базу данных и то, где ИИ действительно поможет." },
+        { title: "Разработка", text: "Создаю бэкенд, фронтенд и AI-интеграцию: FastAPI, Django, React, Next.js, Claude, Gemini." },
+        { title: "Запуск", text: "Разворачиваю на Vercel или Render, проверяю в реальной работе и вношу доработки." },
+      ],
+    },
+    featured: {
+      label: "Портфолио",
+      title: "Избранные проекты",
+      subtitle: "Несколько моих работающих проектов. Все — на странице проектов.",
+      viewAll: "Смотреть все",
+    },
+    cta: {
+      title: "Есть проект? Давайте обсудим.",
+      text: "Если у вас есть идея в сфере образования, бизнеса или ИИ — напишите, обсудим вместе.",
+      contact: "Связаться",
+      telegram: "Написать в Telegram",
+    },
     about: {
-      title: "Обо мне",
+      label: "Обо мне",
+      heading: ["Создаю", "AI-системы", "для образования и бизнеса."],
       description:
         "Я — Нураддинов Сарварбек Музаффар угли, студент Ташкентского государственного университета востоковедения и full-stack & AI разработчик. Создаю системы на базе ИИ для образования и бизнеса: от расписания занятий в университете до школьной диагностики и ERP для консалтинга.",
       description2:
@@ -244,6 +307,7 @@ export const translations = {
       ],
     },
     experience: {
+      label: "Опыт",
       title: "Опыт",
       subtitle: "С кем и над чем я работал",
       present: "сейчас",
@@ -304,6 +368,7 @@ export const translations = {
       },
     },
     skills: {
+      label: "Технологии",
       title: "Навыки",
       subtitle: "Технологии, которые я применял в реальных проектах",
       legend: "Число — количество проектов, где использована технология",
@@ -316,8 +381,10 @@ export const translations = {
       },
     },
     projects: {
-      title: "Проекты",
-      subtitle: "Работающие проекты — нажмите, чтобы открыть",
+      label: "Портфолио",
+      heading: ["Мои", "проекты"],
+      subtitle: "Работающие проекты — нажмите на карточку, чтобы открыть сайт.",
+      note: "Код некоторых проектов закрыт — их можно посмотреть через живое демо.",
       viewCode: "Смотреть код",
       viewDemo: "Открыть сайт",
       viewAll: "Все проекты на GitHub",
@@ -367,7 +434,7 @@ export const translations = {
         portfolio: {
           title: "Portfolio сайт",
           description:
-            "Этот сайт — на Next.js и Tailwind CSS, на 4 языках (UZ / RU / EN / ZH), с таймлайном опыта и фильтром проектов.",
+            "Этот сайт — на Next.js и Tailwind CSS: 4 языка (UZ / RU / EN / ZH), светлая и тёмная тема, таймлайн опыта и фильтр проектов.",
         },
         kitoblar: {
           title: "Kitoblar Dunyosi",
@@ -382,16 +449,21 @@ export const translations = {
       },
     },
     contact: {
-      title: "Контакт",
-      subtitle: "Напишите мне",
+      label: "Контакты",
+      heading: ["Давайте", "свяжемся"],
+      subtitle: "Пишите по поводу проекта, сотрудничества или с вопросом.",
+      formTitle: "Отправить сообщение",
       namePlaceholder: "Ваше имя",
       emailPlaceholder: "Ваш email",
       messagePlaceholder: "Ваше сообщение...",
       send: "Отправить",
       sent: "Отправлено!",
-      orConnect: "Или через социальные сети",
+      orConnect: "Или напрямую:",
     },
     footer: {
+      tagline: "Full-stack & AI разработчик. Создаю системы на базе ИИ для образования и бизнеса.",
+      pages: "Страницы",
+      contact: "Контакты",
       rights: "Все права защищены",
       madeWith: "Сделано",
       by: "",
@@ -399,11 +471,14 @@ export const translations = {
   },
   en: {
     nav: {
+      home: "Home",
       about: "About",
-      experience: "Experience",
-      skills: "Skills",
       projects: "Projects",
       contact: "Contact",
+    },
+    ui: {
+      theme: "Light/dark mode",
+      menu: "Menu",
     },
     hero: {
       greeting: "Hi, I'm",
@@ -420,8 +495,32 @@ export const translations = {
         years: "years of experience",
       },
     },
+    process: {
+      label: "Process",
+      title: "How I work",
+      subtitle: "From idea to a working system — every project goes through four stages.",
+      steps: [
+        { title: "Analysis", text: "I study the problem, the users, and the current workflow to find what should be automated." },
+        { title: "Design", text: "I plan the architecture, the database, and where AI genuinely helps." },
+        { title: "Development", text: "I build the backend, frontend, and AI integration: FastAPI, Django, React, Next.js, Claude, Gemini." },
+        { title: "Launch", text: "I deploy to Vercel or Render, test it in real use, and refine it." },
+      ],
+    },
+    featured: {
+      label: "Portfolio",
+      title: "Selected projects",
+      subtitle: "A few of my live projects. See them all on the projects page.",
+      viewAll: "View all",
+    },
+    cta: {
+      title: "Have a project? Let's talk.",
+      text: "If you have an idea in education, business, or AI — write to me and we'll look at it together.",
+      contact: "Get in touch",
+      telegram: "Message on Telegram",
+    },
     about: {
-      title: "About Me",
+      label: "About",
+      heading: ["I build", "AI systems", "for education and business."],
       description:
         "I'm Nuraddinov Sarvarbek Muzaffar o'g'li — a student at Tashkent State University of Oriental Studies and a full-stack & AI developer. I build AI-powered systems for education and business: from university class scheduling to school diagnostics and a consulting ERP.",
       description2:
@@ -442,6 +541,7 @@ export const translations = {
       ],
     },
     experience: {
+      label: "Experience",
       title: "Experience",
       subtitle: "Who I've worked with and what I've built",
       present: "Present",
@@ -502,6 +602,7 @@ export const translations = {
       },
     },
     skills: {
+      label: "Tech stack",
       title: "Skills",
       subtitle: "Technologies I've used in real projects",
       legend: "Number — how many of my projects use this technology",
@@ -514,8 +615,10 @@ export const translations = {
       },
     },
     projects: {
-      title: "Projects",
-      subtitle: "Live projects — click a card to open it",
+      label: "Portfolio",
+      heading: ["My", "projects"],
+      subtitle: "Live projects — click a card to open the site.",
+      note: "Some projects' source code is private — you can explore them through the live demo.",
       viewCode: "View Code",
       viewDemo: "Open site",
       viewAll: "All projects on GitHub",
@@ -565,7 +668,7 @@ export const translations = {
         portfolio: {
           title: "Portfolio Website",
           description:
-            "This site — built with Next.js and Tailwind CSS, in 4 languages (UZ / RU / EN / ZH), with an experience timeline and project filters.",
+            "This site — built with Next.js and Tailwind CSS: 4 languages (UZ / RU / EN / ZH), light and dark themes, an experience timeline, and project filters.",
         },
         kitoblar: {
           title: "Kitoblar Dunyosi",
@@ -580,16 +683,21 @@ export const translations = {
       },
     },
     contact: {
-      title: "Contact",
-      subtitle: "Send me a message",
+      label: "Contact",
+      heading: ["Let's", "connect"],
+      subtitle: "Feel free to write about a project, a collaboration, or a question.",
+      formTitle: "Send a message",
       namePlaceholder: "Your name",
       emailPlaceholder: "Your email",
       messagePlaceholder: "Your message...",
       send: "Send Message",
       sent: "Sent!",
-      orConnect: "Or connect via",
+      orConnect: "Or reach me directly:",
     },
     footer: {
+      tagline: "Full-stack & AI developer building AI-powered systems for education and business.",
+      pages: "Pages",
+      contact: "Contact",
       rights: "All rights reserved",
       madeWith: "Made with",
       by: "by",
@@ -597,11 +705,14 @@ export const translations = {
   },
   zh: {
     nav: {
+      home: "首页",
       about: "关于我",
-      experience: "经历",
-      skills: "技能",
       projects: "项目",
       contact: "联系",
+    },
+    ui: {
+      theme: "浅色/深色模式",
+      menu: "菜单",
     },
     hero: {
       greeting: "你好，我是",
@@ -618,8 +729,32 @@ export const translations = {
         years: "年经验",
       },
     },
+    process: {
+      label: "工作流程",
+      title: "我的工作方式",
+      subtitle: "从想法到可运行的系统——每个项目都经历四个阶段。",
+      steps: [
+        { title: "分析", text: "研究问题、用户和现有流程，找出需要自动化的环节。" },
+        { title: "设计", text: "规划架构、数据库，以及 AI 真正能发挥作用的地方。" },
+        { title: "开发", text: "构建后端、前端和 AI 集成：FastAPI、Django、React、Next.js、Claude、Gemini。" },
+        { title: "上线", text: "部署到 Vercel 或 Render，在真实使用中测试并持续改进。" },
+      ],
+    },
+    featured: {
+      label: "作品集",
+      title: "精选项目",
+      subtitle: "我的部分上线项目，全部项目请见项目页面。",
+      viewAll: "查看全部",
+    },
+    cta: {
+      title: "有项目想法？一起聊聊。",
+      text: "如果您在教育、商业或 AI 方面有想法，欢迎联系我，我们一起探讨。",
+      contact: "联系我",
+      telegram: "Telegram 私信",
+    },
     about: {
-      title: "关于我",
+      label: "关于我",
+      heading: ["为教育和商业打造", "AI 系统", ""],
       description:
         "我是 Nuraddinov Sarvarbek，塔什干国立东方学大学的学生，也是一名全栈 & AI 开发者。我为教育和商业打造基于 AI 的系统：从大学排课到学校诊断测评，再到咨询公司的 ERP。",
       description2:
@@ -640,6 +775,7 @@ export const translations = {
       ],
     },
     experience: {
+      label: "经历",
       title: "经历",
       subtitle: "我与谁合作、做过什么",
       present: "至今",
@@ -700,6 +836,7 @@ export const translations = {
       },
     },
     skills: {
+      label: "技术栈",
       title: "技能",
       subtitle: "我在真实项目中使用过的技术",
       legend: "数字——使用该技术的项目数量",
@@ -712,8 +849,10 @@ export const translations = {
       },
     },
     projects: {
-      title: "项目",
-      subtitle: "已上线的项目——点击卡片即可打开",
+      label: "作品集",
+      heading: ["我的", "项目"],
+      subtitle: "已上线的项目——点击卡片即可打开网站。",
+      note: "部分项目的源代码不公开，可通过在线演示查看。",
       viewCode: "查看代码",
       viewDemo: "打开网站",
       viewAll: "在 GitHub 上查看全部项目",
@@ -763,7 +902,7 @@ export const translations = {
         portfolio: {
           title: "个人作品集网站",
           description:
-            "本网站——使用 Next.js 和 Tailwind CSS 构建，支持四种语言（UZ / RU / EN / ZH），包含经历时间轴和项目筛选。",
+            "本网站——使用 Next.js 和 Tailwind CSS 构建：四种语言（UZ / RU / EN / ZH）、浅色/深色主题、经历时间轴和项目筛选。",
         },
         kitoblar: {
           title: "Kitoblar Dunyosi",
@@ -778,16 +917,21 @@ export const translations = {
       },
     },
     contact: {
-      title: "联系",
-      subtitle: "给我发消息",
+      label: "联系",
+      heading: ["保持", "联系"],
+      subtitle: "关于项目、合作或任何问题，欢迎随时联系我。",
+      formTitle: "发送消息",
       namePlaceholder: "您的姓名",
       emailPlaceholder: "您的邮箱",
       messagePlaceholder: "您的留言...",
       send: "发送消息",
       sent: "已发送！",
-      orConnect: "或通过社交媒体联系",
+      orConnect: "或直接联系：",
     },
     footer: {
+      tagline: "全栈 & AI 开发者，为教育和商业打造基于 AI 的系统。",
+      pages: "页面",
+      contact: "联系",
       rights: "保留所有权利",
       madeWith: "制作于",
       by: "作者",

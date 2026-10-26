@@ -1,23 +1,15 @@
-import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Experience from "@/components/Experience";
-import Skills from "@/components/Skills";
-import Projects from "@/components/Projects";
-import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
+import Process from "@/components/Process";
+import FeaturedProjects from "@/components/FeaturedProjects";
+import CallToAction from "@/components/CallToAction";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#0a0a0a] overflow-x-clip">
-      <Navbar />
+    <>
       <Hero />
-      <About />
-      <Experience />
-      <Skills />
-      <Projects />
-      <Contact />
-      <Footer />
-    </main>
+      <Process />
+      <FeaturedProjects />
+      <CallToAction />
+    </>
   );
 }

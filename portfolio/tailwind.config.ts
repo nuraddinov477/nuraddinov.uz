@@ -1,6 +1,11 @@
 import type { Config } from "tailwindcss";
 
+// Theme colors are CSS variables (see app/globals.css) so one class works in
+// both light (:root) and dark (.dark) mode.
+const themed = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
+
 const config: Config = {
+  darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,32 +14,40 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        accent: "#22c55e",
-        "accent-dim": "#16a34a",
-        surface: "#111111",
-        "surface-2": "#1a1a1a",
-        "surface-3": "#222222",
-        muted: "#6b7280",
+        bg: themed("bg"),
+        surface: themed("surface"),
+        "surface-2": themed("surface-2"),
+        ink: themed("ink"),
+        body: themed("body"),
+        muted: themed("muted"),
+        line: themed("line"),
+        accent: themed("accent"),
+        "accent-soft": themed("accent-soft"),
+        "accent-ink": themed("accent-ink"),
+        sky: themed("sky"),
       },
       fontFamily: {
-        mono: ["'JetBrains Mono'", "monospace"],
-        sans: ["Inter", "sans-serif"],
+        sans: ["var(--font-sans)", "PingFang SC", "Microsoft YaHei", "sans-serif"],
+        heading: ["var(--font-heading)", "PingFang SC", "Microsoft YaHei", "sans-serif"],
+      },
+      borderRadius: {
+        clay: "2rem",
       },
       animation: {
         "fade-up": "fadeUp 0.6s ease forwards",
-        "fade-in": "fadeIn 0.5s ease forwards",
+        "page-in": "pageIn 0.45s ease both",
         blink: "blink 1s step-end infinite",
         float: "float 4s ease-in-out infinite",
-        twinkle: "twinkle 3s ease-in-out infinite",
+        blob: "blob 14s ease-in-out infinite",
       },
       keyframes: {
         fadeUp: {
           "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
-        fadeIn: {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
+        pageIn: {
+          "0%": { opacity: "0", transform: "translateY(8px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
         blink: {
           "0%, 100%": { opacity: "1" },
@@ -42,11 +55,11 @@ const config: Config = {
         },
         float: {
           "0%, 100%": { transform: "translateY(0px)" },
-          "50%":      { transform: "translateY(-8px)" },
+          "50%": { transform: "translateY(-8px)" },
         },
-        twinkle: {
-          "0%, 100%": { opacity: "0", transform: "scale(0.4) rotate(0deg)" },
-          "50%":       { opacity: "0.8", transform: "scale(1) rotate(180deg)" },
+        blob: {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "50%": { transform: "translate(30px, -20px) scale(1.08)" },
         },
       },
     },

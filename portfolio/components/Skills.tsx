@@ -69,39 +69,39 @@ export default function Skills() {
   const [gridRef, gridVisible] = useInView<HTMLDivElement>();
 
   return (
-    <section id="skills" className="py-24 px-4">
-      <div className="max-w-5xl mx-auto">
+    <section className="px-4 py-20">
+      <div className="mx-auto max-w-5xl">
         <div ref={headerRef}>
-          <SectionHeading index="03" title={t.skills.title} subtitle={t.skills.subtitle} visible={headerVisible} />
+          <SectionHeading label={t.skills.label} title={t.skills.title} subtitle={t.skills.subtitle} visible={headerVisible} />
         </div>
 
-        <div ref={gridRef} className="grid md:grid-cols-2 gap-5">
+        <div ref={gridRef} className="grid gap-6 md:grid-cols-2">
           {skillGroups.map((group, gi) => (
             <div
               key={group.key}
-              className="bg-surface-2 border border-white/5 rounded-2xl p-6 hover:border-accent/20 transition-colors duration-300"
+              className="clay p-7"
               style={{
                 opacity: gridVisible ? 1 : 0,
                 transform: gridVisible ? "translateY(0)" : "translateY(30px)",
                 transition: `opacity 0.6s ease ${gi * 0.12}s, transform 0.6s ease ${gi * 0.12}s`,
               }}
             >
-              <h3 className="flex items-center gap-2.5 text-white font-semibold font-mono text-sm mb-5">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 border border-accent/20 text-accent">
-                  <group.icon size={16} />
+              <h3 className="flex items-center gap-3 font-heading text-lg font-extrabold text-ink mb-6">
+                <span className={`clay-icon h-11 w-11 ${gi % 2 === 0 ? "bg-accent-soft dark:bg-accent text-accent-ink" : "bg-sky text-[#062a3d]"}`}>
+                  <group.icon size={20} />
                 </span>
                 {t.skills.categories[group.key]}
               </h3>
-              <ul className="space-y-3.5">
+              <ul className="space-y-4">
                 {group.items.map((item, ii) => (
                   <li key={item.name}>
-                    <div className="flex justify-between mb-1.5">
-                      <span className="text-gray-400 text-xs font-mono">{item.name}</span>
-                      <span className="text-accent text-xs font-mono tabular-nums">{item.count}</span>
+                    <div className="flex justify-between mb-1.5 text-sm">
+                      <span className="font-semibold text-body">{item.name}</span>
+                      <span className="font-heading font-extrabold text-accent-ink dark:text-accent tabular-nums">{item.count}</span>
                     </div>
-                    <div className="h-1.5 bg-surface-3 rounded-full overflow-hidden">
+                    <div className="clay-inset h-2.5 overflow-hidden !rounded-full">
                       <div
-                        className="h-full bg-gradient-to-r from-accent-dim to-accent rounded-full"
+                        className="h-full rounded-full bg-gradient-to-r from-accent-soft to-accent"
                         style={{
                           width: gridVisible ? `${(item.count / MAX_COUNT) * 100}%` : "0%",
                           transition: `width 1s ease-out ${gi * 0.12 + ii * 0.06}s`,
@@ -115,16 +115,16 @@ export default function Skills() {
           ))}
         </div>
 
-        <p className="text-gray-600 text-xs font-mono mt-4 text-right">* {t.skills.legend}</p>
+        <p className="mt-5 text-right text-xs font-semibold text-muted">* {t.skills.legend}</p>
 
         {/* Also familiar with */}
-        <div className="mt-12">
-          <h3 className="text-gray-500 text-xs font-mono uppercase tracking-wider mb-4">{t.skills.also}</h3>
-          <div className="flex flex-wrap gap-2">
+        <div className="mt-12 text-center">
+          <h3 className="font-heading text-sm font-extrabold uppercase tracking-wider text-muted mb-5">{t.skills.also}</h3>
+          <div className="flex flex-wrap justify-center gap-2.5">
             {badges.map((badge, i) => (
               <span
                 key={badge}
-                className="px-3 py-1.5 text-xs font-mono bg-surface-2 border border-white/5 text-gray-400 rounded-full hover:border-accent/30 hover:text-accent transition-all duration-200 cursor-default"
+                className="rounded-full bg-surface px-4 py-2 text-xs font-bold text-body shadow-sm border border-line hover:text-accent hover:border-accent/40 transition-colors cursor-default"
                 style={{
                   opacity: gridVisible ? 1 : 0,
                   transform: gridVisible ? "translateY(0)" : "translateY(10px)",

@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, Briefcase, GraduationCap } from "lucide-react";
+import { ArrowUpRight, Briefcase, Calendar, GraduationCap } from "lucide-react";
 import { useLang } from "@/context/LanguageContext";
 import { experience, type Experience as ExperienceEntry } from "@/lib/experience";
 import { linkTarget } from "@/lib/socials";
@@ -27,47 +27,47 @@ function TimelineItem({ entry }: { entry: ExperienceEntry }) {
   const text = t.experience.items[entry.id];
   const period = formatPeriod(entry, t.experience);
   const current = entry.end === "present";
-  const Icon = entry.kind === "education" ? GraduationCap : Briefcase;
+  const education = entry.kind === "education";
+  const Icon = education ? GraduationCap : Briefcase;
 
   return (
     <li
       ref={ref}
-      className="relative pl-14 sm:pl-16"
+      className="relative pl-16 sm:pl-20"
       style={{ opacity: visible ? 1 : 0, transform: visible ? "translateX(0)" : "translateX(-20px)", transition: "opacity 0.6s ease, transform 0.6s ease" }}
     >
       {/* Timeline marker */}
-      <span className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-surface-2 border border-accent/30 text-accent shadow-[0_0_0_6px_#0a0a0a]">
-        <Icon size={16} />
+      <span
+        className={`clay-icon absolute left-0 top-2 h-12 w-12 sm:h-14 sm:w-14 ${
+          education ? "bg-sky text-[#062a3d]" : "bg-accent-soft dark:bg-accent text-accent-ink"
+        }`}
+      >
+        <Icon size={20} />
         {current && (
-          <span className="absolute -top-0.5 -right-0.5 flex h-3 w-3">
+          <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
             <span className="absolute inline-flex h-full w-full rounded-full bg-accent opacity-75 animate-ping" />
-            <span className="relative inline-flex h-3 w-3 rounded-full bg-accent" />
+            <span className="relative inline-flex h-3.5 w-3.5 rounded-full border-2 border-surface bg-accent" />
           </span>
         )}
       </span>
 
-      <div className="bg-surface-2 border border-white/5 rounded-2xl p-6 hover:border-accent/30 transition-colors duration-300">
-        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
-          <div>
-            <h3 className="text-white font-semibold font-mono">{text.role}</h3>
-            <p className="text-accent text-sm mt-0.5">{text.org}</p>
-          </div>
-          {period && (
-            <span className={`self-start shrink-0 text-xs font-mono rounded-full px-3 py-1 border ${
-              current ? "text-accent border-accent/30 bg-accent/5" : "text-gray-500 border-white/5 bg-surface-3"
-            }`}>
-              {period}
-            </span>
-          )}
-        </div>
+      <div className="clay p-6 sm:p-8">
+        {period && (
+          <p className={`mb-2 flex items-center gap-1.5 text-xs font-bold ${current ? "text-accent-ink dark:text-accent" : "text-muted"}`}>
+            <Calendar size={14} />
+            {period}
+          </p>
+        )}
+        <h3 className="font-heading text-xl sm:text-2xl font-extrabold text-ink">{text.role}</h3>
+        <p className="mt-0.5 text-sm font-bold text-accent-ink/80 dark:text-accent">{text.org}</p>
 
-        <p className="text-gray-400 text-sm leading-relaxed">{text.summary}</p>
+        <p className="mt-4 text-sm sm:text-base leading-relaxed text-body">{text.summary}</p>
 
         {text.points.length > 0 && (
           <ul className="mt-4 space-y-2">
             {text.points.map((point) => (
-              <li key={point} className="flex gap-3 text-sm text-gray-500 leading-relaxed">
-                <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
+              <li key={point} className="flex gap-3 text-sm leading-relaxed text-body">
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
                 {point}
               </li>
             ))}
@@ -75,9 +75,9 @@ function TimelineItem({ entry }: { entry: ExperienceEntry }) {
         )}
 
         {(entry.tech.length > 0 || entry.link) && (
-          <div className="mt-5 flex flex-wrap items-center gap-1.5">
+          <div className="mt-6 flex flex-wrap items-center gap-2">
             {entry.tech.map((tech) => (
-              <span key={tech} className="text-xs font-mono text-accent/70 bg-accent/5 border border-accent/10 px-2 py-0.5 rounded">
+              <span key={tech} className="chip">
                 {tech}
               </span>
             ))}
@@ -85,7 +85,7 @@ function TimelineItem({ entry }: { entry: ExperienceEntry }) {
               <a
                 href={entry.link}
                 {...linkTarget(entry.link)}
-                className="ml-auto inline-flex items-center gap-1 text-xs font-mono text-accent/80 hover:text-accent transition-colors"
+                className="ml-auto inline-flex items-center gap-1 rounded-full border-2 border-accent/40 px-4 py-1.5 font-heading text-xs font-bold text-ink hover:border-accent hover:bg-accent/10 transition-colors"
               >
                 {t.experience.visit}
                 <ArrowUpRight size={14} />
@@ -103,11 +103,11 @@ export default function Experience() {
   const [ref, visible] = useInView<HTMLDivElement>();
 
   return (
-    <section id="experience" className="py-24 px-4 bg-surface-2/30">
-      <div className="max-w-5xl mx-auto" ref={ref}>
-        <SectionHeading index="02" title={t.experience.title} subtitle={t.experience.subtitle} visible={visible} />
+    <section className="px-4 py-20">
+      <div ref={ref} className="mx-auto max-w-4xl">
+        <SectionHeading label={t.experience.label} title={t.experience.title} subtitle={t.experience.subtitle} visible={visible} />
 
-        <ol className="relative space-y-8 before:absolute before:left-5 before:top-5 before:bottom-5 before:w-px before:bg-gradient-to-b before:from-accent/50 before:via-white/10 before:to-transparent">
+        <ol className="relative space-y-8 before:absolute before:left-6 sm:before:left-7 before:top-6 before:bottom-6 before:w-0.5 before:rounded-full before:bg-gradient-to-b before:from-accent/60 before:via-line before:to-transparent">
           {experience.map((entry) => (
             <TimelineItem key={entry.id} entry={entry} />
           ))}
