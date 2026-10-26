@@ -32,13 +32,13 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 px-4 bg-surface-2/30">
+    <section id="contact" className="py-24 px-4">
       <div className="max-w-5xl mx-auto" ref={ref}>
         <div
           className="flex items-center gap-3 mb-4"
           style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.6s ease, transform 0.6s ease" }}
         >
-          <span className="text-accent font-mono text-sm">04.</span>
+          <span className="text-accent font-mono text-sm">05.</span>
           <h2 className="text-3xl font-bold text-white">{t.contact.title}</h2>
           <div className="flex-1 h-px bg-white/5 ml-4" />
         </div>

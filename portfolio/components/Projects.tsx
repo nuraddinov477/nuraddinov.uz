@@ -1,101 +1,126 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import Image from "next/image";
+import { ArrowUpRight, Github } from "lucide-react";
 import { useLang } from "@/context/LanguageContext";
-import { Github, ExternalLink } from "lucide-react";
+import { projects, type ProjectCategory } from "@/lib/projects";
 import { GITHUB_URL, linkTarget } from "@/lib/socials";
+import { useInView } from "@/lib/useInView";
+import SectionHeading from "@/components/SectionHeading";
+
+type Filter = "all" | ProjectCategory;
+const filters: Filter[] = ["all", "ai", "edtech", "language", "business"];
+
+// Cards without a live demo or repo have nothing to open, so they're hidden
+const openable = projects.filter((p) => p.demo || p.github);
+const inFilter = (f: Filter) => (f === "all" ? openable : openable.filter((p) => p.categories.includes(f)));
 
 export default function Projects() {
   const { t } = useLang();
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  // Cards without a live demo or repo have nothing to open, so they're hidden
-  const projects = t.projects.items.filter((p) => p.demo !== "#" || p.github !== "#");
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
-      { threshold: 0.1 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
+  const [ref, visible] = useInView<HTMLDivElement>();
+  const [filter, setFilter] = useState<Filter>("all");
+  const shown = inFilter(filter);
 
   return (
-    <section id="projects" className="py-24 px-4">
-      <div className="max-w-5xl mx-auto">
-        <div
-          className="flex items-center gap-3 mb-4"
-          style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.6s ease, transform 0.6s ease" }}
-        >
-          <span className="text-accent font-mono text-sm">03.</span>
-          <h2 className="text-3xl font-bold text-white">{t.projects.title}</h2>
-          <div className="flex-1 h-px bg-white/5 ml-4" />
-        </div>
-        <p
-          className="text-gray-500 mb-12 ml-8 font-mono text-sm"
-          style={{ opacity: visible ? 1 : 0, transition: "opacity 0.6s ease 0.1s" }}
-        >
-          {t.projects.subtitle}
-        </p>
+    <section id="projects" className="py-24 px-4 bg-surface-2/30">
+      <div className="max-w-5xl mx-auto" ref={ref}>
+        <SectionHeading index="04" title={t.projects.title} subtitle={t.projects.subtitle} visible={visible} />
 
-        <div ref={ref} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {projects.map((project, i) => {
-            const hasDemo = project.demo !== "#";
-            const hasGithub = project.github !== "#";
+        {/* Category filter */}
+        <div
+          role="tablist"
+          className="flex flex-wrap gap-2 mb-8"
+          style={{ opacity: visible ? 1 : 0, transition: "opacity 0.6s ease 0.2s" }}
+        >
+          {filters.map((f) => (
+            <button
+              key={f}
+              role="tab"
+              aria-selected={filter === f}
+              onClick={() => setFilter(f)}
+              className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-xs font-mono font-semibold transition-all duration-200 ${
+                filter === f
+                  ? "bg-accent text-black border-accent"
+                  : "bg-surface-2 text-gray-400 border-white/5 hover:text-white hover:border-accent/30"
+              }`}
+            >
+              {t.projects.filters[f]}
+              <span className={`tabular-nums ${filter === f ? "text-black/60" : "text-gray-600"}`}>{inFilter(f).length}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Re-keyed on filter change so the cards replay their entrance */}
+        <div key={filter} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {shown.map((project, i) => {
+            const text = t.projects.items[project.id];
             // The whole card opens the live demo, falling back to the repo
-            const href = hasDemo ? project.demo : project.github;
+            const href = project.demo ?? project.github;
 
             return (
               <div
-                key={project.title}
-                className="group relative flex flex-col bg-surface-2 border border-white/5 rounded-2xl p-6 hover:border-accent/30 transition-all duration-300 hover:-translate-y-1 cursor-pointer"
-                style={{
-                  opacity: visible ? 1 : 0,
-                  transform: visible ? "translateY(0)" : "translateY(30px)",
-                  transition: `opacity 0.6s ease ${i * 0.12}s, transform 0.6s ease ${i * 0.12}s`,
-                }}
+                key={project.id}
+                className={visible ? "animate-fade-up" : "opacity-0"}
+                style={{ animationDelay: `${i * 80}ms`, animationFillMode: "both" }}
               >
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center">
-                    <span className="text-accent font-mono font-bold text-sm">
+                <article className="group relative flex h-full flex-col overflow-hidden bg-surface-2 border border-white/5 rounded-2xl hover:border-accent/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(34,197,94,0.3)] cursor-pointer">
+                  {/* Screenshot */}
+                  <div className="relative aspect-[16/10] overflow-hidden border-b border-white/5 bg-surface-3">
+                    {project.image && (
+                      <Image
+                        src={project.image}
+                        alt={text.title}
+                        fill
+                        sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw"
+                        className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-surface-2 via-surface-2/10 to-transparent" />
+                    <span className="absolute top-3 left-3 rounded-md bg-black/60 backdrop-blur px-2 py-0.5 text-accent font-mono font-bold text-xs">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {hasGithub && (
+                    {project.github && (
                       // z-10 keeps the icon clickable above the card-wide link
-                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="relative z-10 text-gray-400 hover:text-white transition-colors" aria-label="GitHub">
-                        <Github size={18} />
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="GitHub"
+                        className="absolute top-3 right-3 z-10 rounded-lg bg-black/60 backdrop-blur p-1.5 text-gray-300 hover:text-white transition-colors"
+                      >
+                        <Github size={16} />
                       </a>
                     )}
-                    {hasDemo && <ExternalLink size={18} className="text-gray-400 group-hover:text-accent transition-colors" />}
                   </div>
-                </div>
 
-                <h3 className="text-white group-hover:text-accent transition-colors font-semibold mb-2 font-mono">
-                  <a
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="after:absolute after:inset-0 after:rounded-2xl focus:outline-none focus-visible:after:ring-2 focus-visible:after:ring-accent"
-                  >
-                    {project.title}
-                  </a>
-                </h3>
-                <p className="text-gray-500 text-sm leading-relaxed flex-1 mb-4">{project.description}</p>
+                  <div className="flex flex-1 flex-col p-5">
+                    <h3 className="text-white group-hover:text-accent transition-colors font-semibold mb-2 font-mono">
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="after:absolute after:inset-0 after:rounded-2xl focus:outline-none focus-visible:after:ring-2 focus-visible:after:ring-accent"
+                      >
+                        {text.title}
+                      </a>
+                    </h3>
+                    <p className="text-gray-500 text-sm leading-relaxed flex-1 mb-4">{text.description}</p>
 
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {project.tech.map((tech) => (
-                    <span key={tech} className="text-xs font-mono text-accent/70 bg-accent/5 border border-accent/10 px-2 py-0.5 rounded">
-                      {tech}
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {project.tech.map((tech) => (
+                        <span key={tech} className="text-xs font-mono text-accent/70 bg-accent/5 border border-accent/10 px-2 py-0.5 rounded">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    <span className="inline-flex items-center gap-1 text-xs font-mono text-accent/70 group-hover:text-accent transition-colors">
+                      {project.demo ? t.projects.viewDemo : t.projects.viewCode}
+                      <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </span>
-                  ))}
-                </div>
-
-                <span className="text-xs font-mono text-accent/70 group-hover:text-accent transition-colors">
-                  {hasDemo ? t.projects.viewDemo : t.projects.viewCode} →
-                </span>
+                  </div>
+                </article>
               </div>
             );
           })}

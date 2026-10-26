@@ -1,5 +1,6 @@
 import { Github, Linkedin, Facebook, Mail, Send, Instagram, type LucideIcon } from "lucide-react";
 
+export const SITE_URL = "https://nuraddinov-uz.vercel.app";
 export const GITHUB_USERNAME = "nuraddinov477";
 export const GITHUB_URL = `https://github.com/${GITHUB_USERNAME}`;
 export const EMAIL = "nuraddinovsarvarbek05@gmail.com";

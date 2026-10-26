@@ -1,145 +1,140 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { BrainCircuit, Monitor, Server, Workflow, type LucideIcon } from "lucide-react";
 import { useLang } from "@/context/LanguageContext";
+import { useInView } from "@/lib/useInView";
+import SectionHeading from "@/components/SectionHeading";
 
-const skillsData = {
-  frontend: [
-    { name: "React / Next.js", level: 90 },
-    { name: "TypeScript", level: 85 },
-    { name: "Tailwind CSS", level: 90 },
-    { name: "HTML / CSS", level: 95 },
-    { name: "Vue.js", level: 70 },
-  ],
-  backend: [
-    { name: "Python / FastAPI", level: 85 },
-    { name: "Node.js / Express", level: 80 },
-    { name: "PostgreSQL", level: 70 },
-    { name: "REST API / GraphQL", level: 88 },
-    { name: "MongoDB", level: 72 },
-  ],
-  ml: [
-    { name: "PyTorch", level: 82 },
-    { name: "scikit-learn", level: 85 },
-    { name: "Pandas / NumPy", level: 88 },
-    { name: "LLM / Transformers", level: 75 },
-    { name: "Computer Vision", level: 70 },
-  ],
-};
+type SkillGroupKey = "ai" | "backend" | "frontend" | "automation";
 
-const badges = [
-  "Python", "PyTorch", "scikit-learn", "Pandas", "NumPy",
-  "Transformers", "LangChain", "OpenCV", "JavaScript", "TypeScript",
-  "React", "Next.js", "Vue.js", "Node.js", "FastAPI",
-  "PostgreSQL", "MongoDB", "Docker", "Git", "Tailwind CSS",
-  "REST API", "GraphQL", "Figma", "Linux", "Vercel",
+// `count` = how many of the author's projects use the technology
+// (counted from package.json / requirements.txt across ~/projects, Oct 2026)
+const skillGroups: { key: SkillGroupKey; icon: LucideIcon; items: { name: string; count: number }[] }[] = [
+  {
+    key: "ai",
+    icon: BrainCircuit,
+    items: [
+      { name: "Gemini API", count: 6 },
+      { name: "Claude API", count: 5 },
+      { name: "AI agents", count: 2 },
+    ],
+  },
+  {
+    key: "backend",
+    icon: Server,
+    items: [
+      { name: "PostgreSQL", count: 8 },
+      { name: "Django / DRF", count: 4 },
+      { name: "FastAPI", count: 3 },
+      { name: "Flask", count: 3 },
+      { name: "Node.js / Express", count: 3 },
+      { name: "SQLAlchemy", count: 3 },
+      { name: "Prisma", count: 2 },
+    ],
+  },
+  {
+    key: "frontend",
+    icon: Monitor,
+    items: [
+      { name: "React", count: 10 },
+      { name: "Tailwind CSS", count: 8 },
+      { name: "TypeScript", count: 6 },
+      { name: "Next.js", count: 5 },
+      { name: "Vite", count: 3 },
+    ],
+  },
+  {
+    key: "automation",
+    icon: Workflow,
+    items: [
+      { name: "Telegram bot", count: 5 },
+      { name: "PDF / DOCX / Excel", count: 4 },
+      { name: "Google Sheets", count: 3 },
+      { name: "Apps Script", count: 3 },
+    ],
+  },
 ];
 
-function SkillBar({ name, level, animated }: { name: string; level: number; animated: boolean }) {
-  return (
-    <div>
-      <div className="flex justify-between mb-1.5">
-        <span className="text-gray-400 text-xs font-mono">{name}</span>
-        <span className="text-accent text-xs font-mono">{level}%</span>
-      </div>
-      <div className="h-1.5 bg-surface-3 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-gradient-to-r from-accent to-accent-dim rounded-full transition-all duration-1000 ease-out"
-          style={{ width: animated ? `${level}%` : "0%" }}
-        />
-      </div>
-    </div>
-  );
-}
+const MAX_COUNT = Math.max(...skillGroups.flatMap((g) => g.items.map((i) => i.count)));
+
+const badges = [
+  "Python", "JavaScript", "HTML / CSS", "REST API", "Supabase", "Jinja2", "HTMX", "Leaflet",
+  "Docker", "Git", "Linux", "Vercel", "Render", "PyTorch", "scikit-learn", "Pandas", "NumPy",
+  "Transformers", "LangChain", "OpenCV", "MongoDB", "Vue.js", "GraphQL", "Figma",
+];
 
 export default function Skills() {
   const { t } = useLang();
-  const ref = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const [animated, setAnimated] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [headerVisible, setHeaderVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setAnimated(true); setVisible(true); observer.disconnect(); } },
-      { threshold: 0.1 }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setHeaderVisible(true); observer.disconnect(); } },
-      { threshold: 0.1 }
-    );
-    if (headerRef.current) observer.observe(headerRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  const categories = [
-    { key: "ml" as const, label: t.skills.categories.ml, data: skillsData.ml },
-    { key: "frontend" as const, label: t.skills.categories.frontend, data: skillsData.frontend },
-    { key: "backend" as const, label: t.skills.categories.backend, data: skillsData.backend },
-  ];
+  const [headerRef, headerVisible] = useInView<HTMLDivElement>();
+  const [gridRef, gridVisible] = useInView<HTMLDivElement>();
 
   return (
-    <section id="skills" className="py-24 px-4 bg-surface-2/30">
+    <section id="skills" className="py-24 px-4">
       <div className="max-w-5xl mx-auto">
-        <div
-          ref={headerRef}
-          className="flex items-center gap-3 mb-4"
-          style={{ opacity: headerVisible ? 1 : 0, transform: headerVisible ? "translateY(0)" : "translateY(20px)", transition: "opacity 0.6s ease, transform 0.6s ease" }}
-        >
-          <span className="text-accent font-mono text-sm">02.</span>
-          <h2 className="text-3xl font-bold text-white">{t.skills.title}</h2>
-          <div className="flex-1 h-px bg-white/5 ml-4" />
-        </div>
-        <p
-          className="text-gray-500 mb-12 ml-8 font-mono text-sm"
-          style={{ opacity: headerVisible ? 1 : 0, transition: "opacity 0.6s ease 0.1s" }}
-        >
-          {t.skills.subtitle}
-        </p>
-
-        {/* Tech badges with stagger */}
-        <div className="flex flex-wrap gap-2 mb-14">
-          {badges.map((badge, i) => (
-            <span
-              key={badge}
-              className="px-3 py-1.5 text-xs font-mono bg-surface-2 border border-white/5 text-gray-400 rounded-full hover:border-accent/30 hover:text-accent transition-all duration-200 cursor-default"
-              style={{
-                opacity: headerVisible ? 1 : 0,
-                transform: headerVisible ? "translateY(0)" : "translateY(10px)",
-                transition: `opacity 0.4s ease ${0.1 + i * 0.03}s, transform 0.4s ease ${0.1 + i * 0.03}s`,
-              }}
-            >
-              {badge}
-            </span>
-          ))}
+        <div ref={headerRef}>
+          <SectionHeading index="03" title={t.skills.title} subtitle={t.skills.subtitle} visible={headerVisible} />
         </div>
 
-        {/* Skill bars */}
-        <div ref={ref} className="grid md:grid-cols-3 gap-8">
-          {categories.map((cat, ci) => (
+        <div ref={gridRef} className="grid md:grid-cols-2 gap-5">
+          {skillGroups.map((group, gi) => (
             <div
-              key={cat.key}
-              className="space-y-4"
+              key={group.key}
+              className="bg-surface-2 border border-white/5 rounded-2xl p-6 hover:border-accent/20 transition-colors duration-300"
               style={{
-                opacity: visible ? 1 : 0,
-                transform: visible ? "translateY(0)" : "translateY(30px)",
-                transition: `opacity 0.6s ease ${ci * 0.15}s, transform 0.6s ease ${ci * 0.15}s`,
+                opacity: gridVisible ? 1 : 0,
+                transform: gridVisible ? "translateY(0)" : "translateY(30px)",
+                transition: `opacity 0.6s ease ${gi * 0.12}s, transform 0.6s ease ${gi * 0.12}s`,
               }}
             >
-              <h3 className="text-white font-semibold font-mono text-sm border-b border-white/5 pb-2">
-                <span className="text-accent">/ </span>{cat.label}
+              <h3 className="flex items-center gap-2.5 text-white font-semibold font-mono text-sm mb-5">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 border border-accent/20 text-accent">
+                  <group.icon size={16} />
+                </span>
+                {t.skills.categories[group.key]}
               </h3>
-              {cat.data.map((skill) => (
-                <SkillBar key={skill.name} name={skill.name} level={skill.level} animated={animated} />
-              ))}
+              <ul className="space-y-3.5">
+                {group.items.map((item, ii) => (
+                  <li key={item.name}>
+                    <div className="flex justify-between mb-1.5">
+                      <span className="text-gray-400 text-xs font-mono">{item.name}</span>
+                      <span className="text-accent text-xs font-mono tabular-nums">{item.count}</span>
+                    </div>
+                    <div className="h-1.5 bg-surface-3 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-gradient-to-r from-accent-dim to-accent rounded-full"
+                        style={{
+                          width: gridVisible ? `${(item.count / MAX_COUNT) * 100}%` : "0%",
+                          transition: `width 1s ease-out ${gi * 0.12 + ii * 0.06}s`,
+                        }}
+                      />
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
+        </div>
+
+        <p className="text-gray-600 text-xs font-mono mt-4 text-right">* {t.skills.legend}</p>
+
+        {/* Also familiar with */}
+        <div className="mt-12">
+          <h3 className="text-gray-500 text-xs font-mono uppercase tracking-wider mb-4">{t.skills.also}</h3>
+          <div className="flex flex-wrap gap-2">
+            {badges.map((badge, i) => (
+              <span
+                key={badge}
+                className="px-3 py-1.5 text-xs font-mono bg-surface-2 border border-white/5 text-gray-400 rounded-full hover:border-accent/30 hover:text-accent transition-all duration-200 cursor-default"
+                style={{
+                  opacity: gridVisible ? 1 : 0,
+                  transform: gridVisible ? "translateY(0)" : "translateY(10px)",
+                  transition: `opacity 0.4s ease ${0.3 + i * 0.03}s, transform 0.4s ease ${0.3 + i * 0.03}s`,
+                }}
+              >
+                {badge}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
     </section>

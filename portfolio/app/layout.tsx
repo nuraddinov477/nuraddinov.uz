@@ -1,51 +1,57 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { LanguageProvider } from "@/context/LanguageContext";
+import { EMAIL, SITE_URL, socialLinks } from "@/lib/socials";
+
+const title = "Nuraddinov Sarvarbek — Full-stack & AI Developer";
+const description =
+  "Nuraddinov Sarvarbek — TDShU talabasi, full-stack & AI dasturchi. TDShU, Firdavs School va RESTA uchun AI asosidagi tizimlar: SmartJadval, Bilim Check-Up, RESTA ERP. FastAPI, Django, React, Next.js, Claude va Gemini API.";
 
 export const metadata: Metadata = {
-  title: "Nuraddinov Sarvarbek — ML & Web Developer",
-  description:
-    "Nuraddinov Sarvarbek Muzaffar o'g'li — ML muhandis va veb dasturchi. Machine Learning, AI va zamonaviy veb ilovalar yarataman. Vibe coder. Toshkent, O'zbekiston.",
+  metadataBase: new URL(SITE_URL),
+  title,
+  description,
+  alternates: { canonical: "/" },
   keywords: [
     "Nuraddinov Sarvarbek",
     "Sarvarbek Nuraddinov",
     "Нураддинов Сарварбек",
     "Sarvarbek Muzaffar",
-    "ML engineer",
-    "ML muhandis",
-    "web developer",
-    "veb dasturchi",
-    "machine learning",
-    "sun'iy intellekt",
+    "nuraddinov477",
+    "full-stack developer",
     "AI developer",
-    "vibe coder",
-    "vibe coding",
+    "veb dasturchi",
+    "sun'iy intellekt",
     "разработчик",
-    "portfolio",
+    "SmartJadval",
+    "Bilim Check-Up",
+    "TDShU",
+    "Toshkent davlat sharqshunoslik universiteti",
+    "FastAPI",
+    "Django",
     "Next.js",
     "React",
-    "Python",
-    "PyTorch",
+    "Claude API",
+    "Gemini API",
+    "Telegram bot",
     "Toshkent",
-    "Uzbekistan",
     "O'zbekiston",
   ],
-  authors: [{ name: "Nuraddinov Sarvarbek", url: "mailto:nuraddinovsarvarbek05@gmail.com" }],
+  authors: [{ name: "Nuraddinov Sarvarbek", url: SITE_URL }],
   creator: "Nuraddinov Sarvarbek",
   openGraph: {
-    type: "website",
+    type: "profile",
+    url: "/",
     locale: "uz_UZ",
-    alternateLocale: ["ru_RU", "en_US"],
-    title: "Nuraddinov Sarvarbek — ML & Web Developer",
-    description:
-      "Nuraddinov Sarvarbek Muzaffar o'g'li — ML muhandis va veb dasturchi. Machine Learning va zamonaviy veb ilovalar yarataman.",
-    siteName: "Sarvarbek Nuraddinov Portfolio",
+    alternateLocale: ["ru_RU", "en_US", "zh_CN"],
+    title,
+    description,
+    siteName: "Sarvarbek Nuraddinov",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nuraddinov Sarvarbek — ML & Web Developer",
-    description:
-      "Nuraddinov Sarvarbek Muzaffar o'g'li — ML muhandis va veb dasturchi.",
+    title,
+    description,
   },
   robots: {
     index: true,
@@ -55,6 +61,22 @@ export const metadata: Metadata = {
       follow: true,
     },
   },
+};
+
+// Structured data so search engines can show a profile card
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Nuraddinov Sarvarbek",
+  alternateName: ["Sarvarbek Nuraddinov", "Нураддинов Сарварбек"],
+  url: SITE_URL,
+  image: `${SITE_URL}/photo-nobg.png`,
+  jobTitle: "Full-stack & AI Developer",
+  email: `mailto:${EMAIL}`,
+  address: { "@type": "PostalAddress", addressLocality: "Tashkent", addressCountry: "UZ" },
+  affiliation: { "@type": "CollegeOrUniversity", name: "Tashkent State University of Oriental Studies" },
+  knowsAbout: ["FastAPI", "Django", "React", "Next.js", "PostgreSQL", "Claude API", "Gemini API", "Telegram bots"],
+  sameAs: socialLinks.filter((s) => s.href.startsWith("http")).map((s) => s.href),
 };
 
 export default function RootLayout({
@@ -73,6 +95,10 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-[#0a0a0a] text-gray-100 antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }}
+        />
         <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>

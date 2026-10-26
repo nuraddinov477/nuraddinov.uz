@@ -12,34 +12,52 @@ const langs: { code: Lang; label: string }[] = [
   { code: "zh", label: "ZH" },
 ];
 
+const sectionIds = ["about", "experience", "skills", "projects", "contact"] as const;
+
 export default function Navbar() {
   const { t, lang, setLang } = useLang();
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [active, setActive] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 20);
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(max > 0 ? Math.min(window.scrollY / max, 1) : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navLinks = [
-    { href: "#about", label: t.nav.about },
-    { href: "#skills", label: t.nav.skills },
-    { href: "#projects", label: t.nav.projects },
-    { href: "#contact", label: t.nav.contact },
-  ];
+  // Highlight the section that crosses the middle of the viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) if (entry.isIntersecting) setActive(entry.target.id);
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    for (const id of sectionIds) {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    }
+    return () => observer.disconnect();
+  }, []);
 
-  const handleNav = (href: string) => {
+  const navLinks = sectionIds.map((id) => ({ id, label: t.nav[id] }));
+
+  const handleNav = (id: string) => {
     setMenuOpen(false);
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
+        scrolled || menuOpen
           ? "bg-surface/90 backdrop-blur-md border-b border-white/5"
           : "bg-transparent"
       }`}
@@ -55,14 +73,22 @@ export default function Navbar() {
           </button>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-7">
             {navLinks.map((link) => (
               <button
-                key={link.href}
-                onClick={() => handleNav(link.href)}
-                className="text-sm text-gray-400 hover:text-white transition-colors duration-200 font-mono"
+                key={link.id}
+                onClick={() => handleNav(link.id)}
+                aria-current={active === link.id ? "true" : undefined}
+                className={`relative text-sm font-mono transition-colors duration-200 ${
+                  active === link.id ? "text-white" : "text-gray-400 hover:text-white"
+                }`}
               >
                 {link.label}
+                <span
+                  className={`absolute -bottom-1.5 left-0 h-px bg-accent transition-all duration-300 ${
+                    active === link.id ? "w-full" : "w-0"
+                  }`}
+                />
               </button>
             ))}
           </div>
@@ -102,9 +128,11 @@ export default function Navbar() {
           <div className="md:hidden py-4 border-t border-white/5">
             {navLinks.map((link) => (
               <button
-                key={link.href}
-                onClick={() => handleNav(link.href)}
-                className="block w-full text-left px-2 py-3 text-sm text-gray-400 hover:text-white font-mono transition-colors"
+                key={link.id}
+                onClick={() => handleNav(link.id)}
+                className={`block w-full text-left px-2 py-3 text-sm font-mono transition-colors ${
+                  active === link.id ? "text-accent" : "text-gray-400 hover:text-white"
+                }`}
               >
                 {link.label}
               </button>
@@ -112,6 +140,12 @@ export default function Navbar() {
           </div>
         )}
       </div>
+
+      {/* Reading progress */}
+      <div
+        className="absolute bottom-0 left-0 h-px bg-gradient-to-r from-accent-dim to-accent"
+        style={{ width: `${progress * 100}%` }}
+      />
     </nav>
   );
 }

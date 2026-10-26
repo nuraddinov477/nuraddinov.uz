@@ -5,10 +5,45 @@ import { useLang } from "@/context/LanguageContext";
 import { ArrowDown, Github } from "lucide-react";
 import Sparkles from "@/components/Sparkles";
 import { GITHUB_URL, GITHUB_USERNAME, linkTarget, socialLinks } from "@/lib/socials";
+import { projects } from "@/lib/projects";
+import { experience } from "@/lib/experience";
+
+// Project folders found on the author's machine (Oct 2026); everything else is derived
+const PROJECT_COUNT = 20;
+const YEARS = 2;
+
+function CountUp({ value, suffix = "" }: { value: number; suffix?: string }) {
+  const [n, setN] = useState(0);
+
+  useEffect(() => {
+    let frame: number;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const p = Math.min((now - start) / 1400, 1);
+      setN(Math.round(value * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [value]);
+
+  return (
+    <>
+      {n}
+      {suffix}
+    </>
+  );
+}
 
 export default function Hero() {
   const { t, lang } = useLang();
   const roles = t.hero.roles;
+  const stats = [
+    { value: PROJECT_COUNT, suffix: "+", label: t.hero.stats.projects },
+    { value: projects.filter((p) => p.demo).length, label: t.hero.stats.live },
+    { value: experience.filter((e) => e.kind === "work" && e.id !== "independent").length, label: t.hero.stats.orgs },
+    { value: YEARS, suffix: "+", label: t.hero.stats.years },
+  ];
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayed, setDisplayed] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -52,7 +87,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
+    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 pt-28 pb-24 overflow-hidden">
       {/* Background grid */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(34,197,94,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(34,197,94,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
 
@@ -91,7 +126,7 @@ export default function Hero() {
         </p>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <button
             onClick={scrollToProjects}
             className="group flex items-center gap-2 bg-accent hover:bg-accent-dim text-black font-semibold px-6 py-3 rounded-lg transition-all duration-200 hover:scale-105 font-mono text-sm"
@@ -114,6 +149,20 @@ export default function Hero() {
             {GITHUB_USERNAME}
           </a>
         </div>
+
+        {/* Stats */}
+        <dl className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/5 border border-white/5 rounded-2xl overflow-hidden mb-12 max-w-2xl mx-auto">
+          {stats.map((s, i) => (
+            // index key: a language switch must not restart the count-up
+            <div key={i} className="bg-[#0a0a0a]/90 backdrop-blur px-4 py-4">
+              <dt className="sr-only">{s.label}</dt>
+              <dd className="text-2xl sm:text-3xl font-bold font-mono text-white tabular-nums">
+                <CountUp value={s.value} suffix={s.suffix} />
+              </dd>
+              <dd className="text-xs text-gray-500 mt-1">{s.label}</dd>
+            </div>
+          ))}
+        </dl>
 
         {/* Social links */}
         <div className="flex items-center justify-center gap-5">

@@ -20,7 +20,9 @@ npm run lint     # Run ESLint
 
 ## Architecture
 
-**Single-page app** — `app/page.tsx` renders all sections sequentially: `Navbar → Hero → About → Skills → Projects → Contact → Footer`.
+**Single-page app** — `app/page.tsx` renders all sections sequentially: `Navbar → Hero → About → Experience → Skills → Projects → Contact → Footer`. Sections use `components/SectionHeading.tsx` for the numbered title and `lib/useInView.ts` for scroll-in reveals; the Navbar highlights the section in view (ids: `about`, `experience`, `skills`, `projects`, `contact`).
+
+**SEO** — `app/layout.tsx` holds metadata (`metadataBase` = `SITE_URL`) and Person JSON-LD; `app/opengraph-image.tsx`, `app/icon.tsx`, `app/sitemap.ts`, `app/robots.ts` are generated at build time.
 
 **Internationalization (i18n)** — Custom, no external library:
 - `lib/translations.ts` — All UI strings for `uz` (Uzbek), `ru` (Russian), `en` (English), and `zh` (Chinese), exported as a typed `translations` object. Default language is Uzbek (`uz`).
@@ -29,13 +31,13 @@ npm run lint     # Run ESLint
 
 When adding new translatable strings, add keys to all four language objects in `lib/translations.ts` — never hardcode user-visible text in components.
 
-**Projects** — Defined per language in `t.projects.items`; `"#"` means no `demo`/`github` link. The whole card links to the demo (falling back to the repo), and cards with neither link are hidden.
+**Projects & experience data** — Language-independent data lives in `lib/projects.ts` (links, screenshot in `public/projects/`, tech, filter categories) and `lib/experience.ts` (timeline periods as `"YYYY-MM"`, links, tech); their texts live in `t.projects.items[id]` and `t.experience.items[id]`, keyed by `ProjectId` / `ExperienceId` (derived from the `uz` translations, so every language must define the same ids). A project card links to its demo, falling back to the repo; projects with neither are hidden. Hero stats (live sites, organizations) are derived from this data. Facts here come from the author's real projects — don't invent roles, dates, or numbers.
 
-**Contact info** — GitHub username, email, and social links live in `lib/socials.ts` (shared by Hero, Projects, Contact). Use `linkTarget(href)` for link `target`/`rel` so `mailto:` links don't open a blank tab.
+**Contact info** — `SITE_URL`, GitHub username, email, and social links live in `lib/socials.ts` (shared by Hero, Projects, Contact, layout metadata). Use `linkTarget(href)` for link `target`/`rel` so `mailto:` links don't open a blank tab.
 
 **Styling** — Tailwind CSS with a custom dark theme. Core palette defined in `tailwind.config.ts`:
 - Background: `#0a0a0a` (page), `#111111` / `#1a1a1a` / `#222222` (surfaces)
 - Accent: `#22c55e` (green)
 - Fonts: `Inter` (sans), `JetBrains Mono` (mono) — loaded from Google Fonts in layout
 
-**Animations** — Scroll-in animations use `IntersectionObserver` + inline `transition` styles (`framer-motion` is installed but currently unused); custom Tailwind keyframes (`fade-up`, `fade-in`, `float`, `twinkle`, `blink`) for CSS animations. `components/Sparkles.tsx` is a decorative animated component.
+**Animations** — Scroll-in animations use `IntersectionObserver` (`lib/useInView.ts`) + inline `transition` styles (`framer-motion` is installed but currently unused); custom Tailwind keyframes (`fade-up`, `fade-in`, `float`, `twinkle`, `blink`) for CSS animations. `components/Sparkles.tsx` is a decorative animated component.
