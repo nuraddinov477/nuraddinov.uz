@@ -5,6 +5,8 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import { EMAIL, SITE_URL, socialLinks } from "@/lib/socials";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { PageTransitionProvider } from "@/components/PageTransition";
+import { SITE_NAME } from "@/lib/seo";
 
 // Rounded fonts with Cyrillic support (the site is also in Russian)
 const heading = Nunito({ subsets: ["latin", "cyrillic"], weight: ["700", "800"], variable: "--font-heading", display: "swap" });
@@ -15,12 +17,13 @@ const themeScript = `(function(){try{var t=localStorage.getItem("theme");if(!t)t
 
 const title = "Nuraddinov Sarvarbek — Full-stack & AI Developer";
 const description =
-  "Nuraddinov Sarvarbek — TDShU talabasi, full-stack & AI dasturchi. TDShU, Firdavs School va RESTA uchun AI asosidagi tizimlar: SmartJadval, Bilim Check-Up, RESTA ERP. FastAPI, Django, React, Next.js, Claude va Gemini API.";
+  "Nuraddinov Sarvarbek — Toshkentdagi full-stack va AI dasturchi. Ta'lim va biznes uchun veb-saytlar, AI tizimlar va Telegram botlar. Loyihalar va bog'lanish.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: title, template: "%s — Nuraddinov Sarvarbek" },
   description,
+  verification: { google: process.env.GOOGLE_SITE_VERIFICATION || undefined },
   alternates: { canonical: "/" },
   keywords: [
     "Nuraddinov Sarvarbek",
@@ -56,7 +59,7 @@ export const metadata: Metadata = {
     alternateLocale: ["ru_RU", "en_US", "zh_CN"],
     title,
     description,
-    siteName: "Sarvarbek Nuraddinov",
+    siteName: SITE_NAME,
   },
   twitter: {
     card: "summary_large_image",
@@ -73,10 +76,11 @@ export const metadata: Metadata = {
   },
 };
 
-// Structured data so search engines can show a profile card
+// Describe the author; structured data does not guarantee a search feature.
 const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": `${SITE_URL}/#person`,
   name: "Nuraddinov Sarvarbek",
   alternateName: [
     "Sarvarbek Nuraddinov",
@@ -113,9 +117,11 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }}
         />
         <LanguageProvider>
-          <Navbar />
-          <main className="min-h-screen overflow-x-clip">{children}</main>
-          <Footer />
+          <PageTransitionProvider>
+            <Navbar />
+            <main className="min-h-screen overflow-x-clip">{children}</main>
+            <Footer />
+          </PageTransitionProvider>
         </LanguageProvider>
       </body>
     </html>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import TransitionLink from "@/components/TransitionLink";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { useLang } from "@/context/LanguageContext";
@@ -37,19 +37,19 @@ export default function Navbar() {
       <nav className="clay mx-auto max-w-6xl !rounded-3xl px-3 sm:px-5 py-2.5">
         <div className="flex items-center justify-between gap-3">
           {/* Logo */}
-          <Link href="/" className="group flex items-center gap-2.5 shrink-0" aria-label={t.nav.home}>
+          <TransitionLink href="/" className="group flex items-center gap-2.5 shrink-0" aria-label={t.nav.home}>
             <span className="clay-icon h-10 w-10 bg-accent-soft dark:bg-accent font-heading font-extrabold text-accent-ink transition-transform group-hover:-rotate-6">
               SN
             </span>
             <span className="hidden sm:block font-heading font-extrabold text-lg text-ink">
               Nuraddinov<span className="text-accent">.</span>
             </span>
-          </Link>
+          </TransitionLink>
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-1">
             {routes.map((r) => (
-              <Link
+              <TransitionLink
                 key={r.href}
                 href={r.href}
                 aria-current={isActive(r.href) ? "page" : undefined}
@@ -58,7 +58,7 @@ export default function Navbar() {
                 }`}
               >
                 {t.nav[r.key]}
-              </Link>
+              </TransitionLink>
             ))}
           </div>
 
@@ -97,7 +97,7 @@ export default function Navbar() {
       {menuOpen && (
         <div className="md:hidden mx-auto mt-2 max-w-6xl rounded-3xl border border-line bg-surface p-3 shadow-xl">
           {routes.map((r) => (
-            <Link
+            <TransitionLink
               key={r.href}
               href={r.href}
               className={`block rounded-2xl px-4 py-3 font-heading font-bold transition-colors ${
@@ -105,7 +105,7 @@ export default function Navbar() {
               }`}
             >
               {t.nav[r.key]}
-            </Link>
+            </TransitionLink>
           ))}
         </div>
       )}

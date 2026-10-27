@@ -3,5 +3,6 @@ portfolio/node_modules/
 portfolio/.next/
 portfolio/out/
 portfolio/.env*
+!portfolio/.env.example
 .vscode/
 .claude/

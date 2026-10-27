@@ -26,7 +26,7 @@ npm run lint     # Run ESLint
 - `/projects` — `Projects` (filters + grid) `→ CallToAction`
 - `/contact` — `Contact` (contact cards + mailto form)
 
-`app/layout.tsx` renders the shared floating `Navbar` (route links, active via `usePathname`) and column `Footer`; `app/template.tsx` fades each page in. Each page exports its own `metadata` (title + `alternates.canonical`). Sections use `components/SectionHeading.tsx` (centered label + title; `AccentTitle` highlights the middle of a `[before, accent, after]` string array) and `lib/useInView.ts` for scroll-in reveals. Project cards are shared via `components/ProjectCard.tsx`; `featured: true` in `lib/projects.ts` puts a project on the home page.
+`app/layout.tsx` renders the shared floating `Navbar` (route links, active via `usePathname`) and column `Footer`; `app/template.tsx` fades each page in. Internal links use `components/TransitionLink.tsx`, which plays the bottom-to-top curtain from `components/PageTransition.tsx` (cover → `router.push` → reveal; skipped for reduced motion, modified clicks and back/forward). Each page exports its own `metadata` (title + `alternates.canonical`). Sections use `components/SectionHeading.tsx` (centered label + title; `AccentTitle` highlights the middle of a `[before, accent, after]` string array) and `lib/useInView.ts` for scroll-in reveals. Project cards are shared via `components/ProjectCard.tsx`; `featured: true` in `lib/projects.ts` puts a project on the home page.
 
 **SEO** — `app/layout.tsx` holds metadata (`metadataBase` = `SITE_URL`) and Person JSON-LD; `app/opengraph-image.tsx`, `app/icon.tsx`, `app/sitemap.ts`, `app/robots.ts` are generated at build time.
 

@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import TransitionLink from "@/components/TransitionLink";
 import { Mail, Send } from "lucide-react";
 import { useLang } from "@/context/LanguageContext";
 import { TELEGRAM_URL, linkTarget } from "@/lib/socials";
@@ -23,10 +23,10 @@ export default function CallToAction() {
         <h2 className="relative font-heading text-3xl sm:text-5xl font-extrabold tracking-tight text-ink">{t.cta.title}</h2>
         <p className="relative mx-auto mt-4 max-w-xl text-base sm:text-lg text-body">{t.cta.text}</p>
         <div className="relative mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-          <Link href="/contact" className="clay-btn clay-btn-primary">
+          <TransitionLink href="/contact" className="clay-btn clay-btn-primary">
             <Mail size={16} />
             {t.cta.contact}
-          </Link>
+          </TransitionLink>
           <a href={TELEGRAM_URL} {...linkTarget(TELEGRAM_URL)} className="clay-btn clay-btn-sky">
             <Send size={16} />
             {t.cta.telegram}

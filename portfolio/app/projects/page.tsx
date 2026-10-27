@@ -1,13 +1,12 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Projects from "@/components/Projects";
 import CallToAction from "@/components/CallToAction";
 
-export const metadata: Metadata = {
-  title: "Loyihalar",
-  description:
-    "Jonli ishlaydigan loyihalar: SmartJadval, Bilim Check-Up, RESTA ERP, Turkiy yozma yodgorliklar korpusi, HSKGo va boshqalar.",
-  alternates: { canonical: "/projects" },
-};
+export const metadata = pageMetadata(
+  "Veb va AI loyihalar",
+  "Nuraddinov Sarvarbek loyihalari: SmartJadval, Bilim Check-Up, RESTA ERP, HSKGo va turkiy yozma yodgorliklar korpusi. Demo va ochiq kod havolalari.",
+  "/projects",
+);
 
 export default function ProjectsPage() {
   return (

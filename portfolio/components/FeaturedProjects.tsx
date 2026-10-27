@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import TransitionLink from "@/components/TransitionLink";
 import { ArrowRight } from "lucide-react";
 import { useLang } from "@/context/LanguageContext";
 import { projects } from "@/lib/projects";
@@ -19,14 +19,14 @@ export default function FeaturedProjects() {
       <div ref={ref} className="mx-auto max-w-6xl">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <SectionHeading label={t.featured.label} title={t.featured.title} subtitle={t.featured.subtitle} visible={visible} align="left" />
-          <Link
+          <TransitionLink
             href="/projects"
             className="clay-btn clay-btn-plain mb-12 self-start md:self-end"
             style={{ opacity: visible ? 1 : 0, transition: "opacity 0.6s ease 0.2s" }}
           >
             {t.featured.viewAll}
             <ArrowRight size={16} />
-          </Link>
+          </TransitionLink>
         </div>
 
         <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">

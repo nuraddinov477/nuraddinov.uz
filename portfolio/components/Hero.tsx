@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import TransitionLink from "@/components/TransitionLink";
 import { ArrowRight, Github, MapPin } from "lucide-react";
 import { useLang } from "@/context/LanguageContext";
 import Sparkles from "@/components/Sparkles";
@@ -40,7 +40,8 @@ export default function Hero() {
   const { t, lang } = useLang();
   const roles = t.hero.roles;
   const [roleIndex, setRoleIndex] = useState(0);
-  const [displayed, setDisplayed] = useState("");
+  // Render the role in the initial HTML, before the typing animation hydrates.
+  const [displayed, setDisplayed] = useState<string>(roles[0]);
   const [isDeleting, setIsDeleting] = useState(false);
   const [firstName, ...restName] = t.hero.name.split(" ");
 
@@ -55,9 +56,9 @@ export default function Hero() {
   // role longer than the new one leaves the effect with no branch to take
   useEffect(() => {
     setRoleIndex(0);
-    setDisplayed("");
+    setDisplayed(roles[0]);
     setIsDeleting(false);
-  }, [lang]);
+  }, [lang, roles]);
 
   useEffect(() => {
     const current = roles[roleIndex];
@@ -112,13 +113,13 @@ export default function Hero() {
 
         {/* CTAs */}
         <div className="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
-          <Link href="/projects" className="clay-btn clay-btn-primary">
+          <TransitionLink href="/projects" className="clay-btn clay-btn-primary">
             {t.hero.cta}
             <ArrowRight size={16} />
-          </Link>
-          <Link href="/contact" className="clay-btn clay-btn-sky">
+          </TransitionLink>
+          <TransitionLink href="/contact" className="clay-btn clay-btn-sky">
             {t.hero.contact}
-          </Link>
+          </TransitionLink>
           <a href={GITHUB_URL} {...linkTarget(GITHUB_URL)} className="clay-btn clay-btn-plain">
             <Github size={16} />
             {GITHUB_USERNAME}

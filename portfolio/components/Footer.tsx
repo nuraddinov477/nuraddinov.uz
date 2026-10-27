@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import TransitionLink from "@/components/TransitionLink";
 import { Heart } from "lucide-react";
 import { useLang } from "@/context/LanguageContext";
 import { linkTarget, socialLinks } from "@/lib/socials";
@@ -22,12 +22,12 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           {/* Brand */}
           <div>
-            <Link href="/" className="flex items-center gap-2.5">
+            <TransitionLink href="/" className="flex items-center gap-2.5">
               <span className="clay-icon h-10 w-10 bg-accent-soft dark:bg-accent font-heading font-extrabold text-accent-ink">SN</span>
               <span className="font-heading font-extrabold text-lg text-ink">
                 Nuraddinov<span className="text-accent">.</span>
               </span>
-            </Link>
+            </TransitionLink>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-body">{t.footer.tagline}</p>
             <div className="mt-5 flex flex-wrap gap-2.5">
               {socialLinks.map((s) => (
@@ -50,9 +50,9 @@ export default function Footer() {
             <ul className="mt-4 space-y-2.5">
               {pages.map((p) => (
                 <li key={p.href}>
-                  <Link href={p.href} className="text-sm text-body hover:text-accent transition-colors">
+                  <TransitionLink href={p.href} className="text-sm text-body hover:text-accent transition-colors">
                     {t.nav[p.key]}
-                  </Link>
+                  </TransitionLink>
                 </li>
               ))}
             </ul>

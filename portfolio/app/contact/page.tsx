@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Contact from "@/components/Contact";
 
-export const metadata: Metadata = {
-  title: "Bog'lanish",
-  description: "Nuraddinov Sarvarbek bilan bog'lanish: email, Telegram, GitHub, LinkedIn yoki xabar formasi orqali.",
-  alternates: { canonical: "/contact" },
-};
+export const metadata = pageMetadata(
+  "Bog'lanish",
+  "Veb-sayt, AI tizim yoki Telegram bot loyihasi uchun Nuraddinov Sarvarbek bilan bog'laning. Email, Telegram, GitHub va boshqa aloqa kanallari.",
+  "/contact",
+);
 
 export default function ContactPage() {
   return <Contact />;
